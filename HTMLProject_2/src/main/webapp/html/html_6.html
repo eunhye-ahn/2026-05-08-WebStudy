@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="table.css">
+<style type="text/css">
+h3 {
+   text-align: center;
+}
+table {
+  margin: 0px auto;
+}
+</style>
+</head>
+<body>
+	<table id="table_content" width="800">
+		<tr>
+			<td width=30% rowspan="6">
+				<img src="https://www.menupan.com/restaurant/restimg/002/zzmenuimg/d20034222_z.jpg"
+				 width="240">
+			</td>
+			<td colspan="2">아름드리카페</td>
+		</tr>
+		<tr>
+			<th width=20%>주소</th>
+			<td width=50%>강원 동해시 평릉동 487-1</td>			
+		</tr>
+		<tr>
+			<th width=20%>전화</th>
+			<td width=50%>(070) 8872-4418</td>			
+		</tr>
+		<tr>
+			<th width=20%>업종</th>
+			<td width=50%>카페/주점-카페</td>			
+		</tr>
+		<tr>
+			<th width=20%>영업시간</th>
+			<td width=50%>10:30 ~ 22:00</td>			
+		</tr>
+		<tr>
+			<th width=20%>가격대</th>
+			<td width=50%>5,000원미만</td>			
+		</tr>
+	</table>
+	<table id="table_content" width="800">
+		<tr>
+			<td>
+			<pre style="white-space: pre-wrap">펜션과 함께 운영하고 있는 아름드리 커피숍을 소개한다.
+
+깔끔하고 넓은 매장 내부는 탁 트인 주변 경치도 구경할 수 있게 되어 있어서 좋은 곳이다.
+
+비영리 봉사단체에서 운영하는 곳으로 여러 사람들의 정성을 모아 이웃들에게 함께 나누는 착한 카페이다.
+
+예쁜 그릇에 담긴 팥빙수와 진한 향의 페퍼민트, 그리고 너무 예쁜 카페라떼까지 분위기 좋은 곳에서 함께 즐기기 좋은 카페이다.</pre>
+			</td>
+		</tr>
+	</table>
+	<table id="table_content" width="800">
+		<tr>
+			<td>
+				<div id="map" style="width:800;height:350px;"></div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9e174327e283f4f12d6e459138fee8f5&libraries=services"></script>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
+
+// 지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+});    
+</script>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
