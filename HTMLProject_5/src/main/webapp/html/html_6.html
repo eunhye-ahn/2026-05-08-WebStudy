@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+li.new::after{
+	content: "NEW";
+	width: 100px;
+	height: 30px;
+	border-radius: 5px;
+	background: red;
+}
+li.new::before{
+	content: "NEW";
+	width: 100px;
+	height: 30px;
+	border-radius: 5px;
+	background: blue;	
+}
+/*
+% => 100%(16px), 50%(8px), 150%(24px)
+em: 배수단위 0.2em ==> 16*0.2
+			2em ==> 16*2
+px: 기본
+*/
+
+</style>
+</head>
+<body>
+	<ul>
+		<li class="new">메뉴1</li>
+		<li>메뉴2</li>
+		<li class="new">메뉴3</li>
+	</ul>
+</body>
+</html>

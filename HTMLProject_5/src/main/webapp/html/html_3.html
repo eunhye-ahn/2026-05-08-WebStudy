@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<style type="text/css">
+#a:active,#b:active, #c:active{
+	color: red;
+}
+
+#b:hover{
+	color:green;
+}
+
+input:enabled {
+	background: yellow;
+}
+input:disabled{
+	background: green;
+}
+input:focus{
+	background: white;
+}
+input[type="checkbox"]:checked{
+	box-shadow: 0 0 0 3px hotpink;
+}
+</style>
+<body>
+	<h3 id="a">감자</h3>
+	<h3 id="b">고구마</h3>
+	<h3 id="c">당근</h3>
+	<hr>
+	<input type="text">
+	<input type="text" disabled>
+	<input type="checkbox" checked>
+</body>
+</html>

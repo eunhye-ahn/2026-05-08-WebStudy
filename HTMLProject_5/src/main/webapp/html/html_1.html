@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+/*
+.img{
+	border: 3px solid green;
+	border-radius : 20px;
+}
+.img1{
+	width: 150px;
+	height: 200px;
+}
+.img2{
+	width: 200px;
+	height: 300px;
+}
+*/
+input[type="text"], input[type="password"]{
+	width: 200px;
+	height: 30px;
+}
+input[type="button"], input[type="range"]{
+	width: 300px;
+}
+input {
+	margin-top: 10px;
+}
+img {
+	width: 200px;
+	height: 300px;
+}
+img[src*="m1"] {
+	width: 100px;
+	height: 200px;
+}
+img[src*="m2"] {
+	border-radius: 50px;
+}
+a {
+	display: block;
+}
+a[href^="aaa"] {
+	color: magenta;
+}
+a[href^="b"] {
+	text-decoration: none;
+}
+a[href$="html"] {
+	color: blue;
+}
+.aa > img {
+	border : 2px solid red;
+}
+.bb > img {
+	border : 2px solid green;
+}
+</style>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script>
+$(function(){
+	$('img[src*="m2"]').click(function(){
+		alert("이미지선택")
+	})
+})
+</script>
+</head>
+<body>
+	<div class="aa">
+		<img src="../images/m1.jpg" class="img img1">
+	</div>
+	<div class="bb">
+		<img src="../images/m2.jpg" class="img img1">
+	</div>
+	<img src="../images/m3.jpg" class="img img1">
+	<img src="../images/m4.jpg" class="img img2">
+	<img src="../images/m5.jpg" class="img img2">
+	<img src="../images/m6.jpg" class="img img2">
+	<img src="../images/m7.jpg" class="img">
+	<br>
+	<input type="text">
+	<input type="password">
+	<input type="file">
+	<input type="range" min="1">
+	<input type="date">
+	<input type="number" min="1">
+	<input type="submit" value="전송">
+	<input type="button" value="취소">
+	<hr>
+	<a href="aaa.html">이동</a>
+	<a href="bbb.html">이동2</a>
+</body>
+</html>
