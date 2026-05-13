@@ -1,0 +1,64 @@
+<!-- 
+     background-color : 배경색 지정 (원색은 피한다)
+     background-image : 배경에 이미지 첨부 
+     background-repeat : 이미지 반복 여부 (타일) 
+     background-position : 배경이미지 위치 지정 
+     background-size: 배경이미지 크기 
+     background-attachment: 배경 고정 여부 
+     background: 단축 속성 
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+body{
+  font-family: sans-serif ,"맑은 고딕",궁서체;
+  margin: 20px;
+}
+h2{
+   margin-top: 40px;
+   border-bottom: 2px solid #333;
+   padding-bottom: 5px;
+}
+.box {
+  width: 200px;
+  height: 130px;
+  margin: 15px;
+  padding: 10px;
+  border: 2px solid gray;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  color:white;
+}
+</style>
+</head>
+<body>
+  <h1>배경 속성 예제</h1>
+  <h2>background-color</h2>
+  <div class="box" style="background-color: lightblue">lightblue</div>
+  <div class="box" style="background-color: lightgreen">lightgreen</div>
+  <div class="box" style="background-color: lightyellow">lightyellow</div>
+  <h2>background-repeat 반복 여부</h2>
+  <div class="box" style="background: url('../images/m3.png') repeat;">반복(O)</div>
+  <div class="box" style="background: url('../images/m3.png') no-repeat;">반복(X)</div>
+  <div class="box" style="background: url('../images/m3.png') repeat-x;">반복(가로)</div>
+  <div class="box" style="background: url('../images/m3.png') repeat-y;">반복(세로)</div>
+  <h2>background-image 이미지 출력</h2>
+  <div class="box" style="background: url('../images/m4.jpg')">이미지 출력</div>
+  <div class="box" style="background: url('../images/m4.jpg');background-size:100% 100%">size</div>
+  <div class="box" style="background: url('../images/m4.jpg');background-size:cover">cover</div>
+  <div class="box" style="background: url('../images/m4.jpg');background-size:contain">contain</div>
+  <h2>background-attachement: 이미지 고정 여부</h2>
+  <div class="box" style="overflow: scroll;background-image: url('../images/m1.jpg');background-repeat: no-repeat;background-position: center;background-attachment: fixed;">
+   background-attachment<br><br><br><br><br><br>
+   <br><br><br><br><br><br><br><br><br><br>
+   <br><br><br><br><br><br><br><br><br><br>
+   scroll
+  </div>
+  <h2>background: 단축속성</h2>
+  <div class="box" style="background: url('../images/m3.jpg') no-repeat center/cover;">단축</div>
+</body>
+</html>
