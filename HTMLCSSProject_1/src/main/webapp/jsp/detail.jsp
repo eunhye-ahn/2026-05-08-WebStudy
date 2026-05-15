@@ -78,7 +78,7 @@ pre{
             
             <tr>
               <td colspan="2" class="text-center">
-               <input type=submit class="btn-sm btn-info" value="수정">
+               <a href="update.jsp?no=<%= vo.getNo() %>">수정</a>
                <a href="delete.jsp?no=<%=vo.getNo() %>">삭제</a>
                <a href="list.jsp">목록</a>
               </td>
