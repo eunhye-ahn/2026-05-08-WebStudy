@@ -12,7 +12,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
 <body>
 	<h1>사원목록</h1>
 	<table border = 1 bordercolor=black width=500>
