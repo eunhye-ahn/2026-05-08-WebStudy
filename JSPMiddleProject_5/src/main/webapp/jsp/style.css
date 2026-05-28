@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+ .container{
+ 	margin-top: 50px;
+ }
+ .row{
+ 	margin: 0px auto;
+ 	width: 800px;
+ }
+h3 {
+	text-align: center;
+}
