@@ -234,6 +234,9 @@ finally {
 	//답변올리기 --일괄처리 프로그램 동시커밋 / 동시 롤백
 	//비절차언어 => 에러 무시 => 다음 문장을 수행 => 한번에 처리 => 트랜잭션
 	//위치지정 => savepoint
+	//상위 게시물의 정보 (답변정보 : group Id(같은 답변 모아주기) group step(답변출력순서) group tab(간격설정))
+	//root 상위 게시물
+	//depth 답변 개수
 	public void boardReply(int pno, BoardVO vo) {
 		try {
 			getConnection();
@@ -251,6 +254,7 @@ finally {
 			int gt = rs.getInt(3);
 			rs.close();
 			//답변 핵심 - 답변그룹들이 섞이지않도록 기존의 group step + => 아래로 내리기
+			//새 답변 위치 => 최신 답변을 가자아 위로 위치 
 			sql = "update jspReplyBoard set "
 					+ "group_step=group_step+1 "
 					+ "where group_id=? and group_step>?";
@@ -259,7 +263,7 @@ finally {
 			ps.setInt(2,gs);
 			ps.executeUpdate();
 			
-			//insert
+			//insert (답변 추가)
 			sql = "insert into jspReplyBoard(no,name,subject,content,pwd,group_id,group_step,group_tab,root) "
 					+ "values(jrb_no_seq.nextval, ?,?,?,?,?,?,?,?)";
 			ps=conn.prepareStatement(sql);;
@@ -273,8 +277,14 @@ finally {
 			ps.setInt(8, pno);
 			ps.executeUpdate();
 			
-			//update
-			sql = "";
+			//update (답변 개수 체크) => depth 증가 
+			sql = "update jspReplyBoard set "
+					+ "depth=depth+1 "
+					+ "where no=?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, pno);
+			ps.executeUpdate();
+			
 			//
 			conn.commit();
 		}
@@ -297,5 +307,79 @@ finally {
 	}
 	
 	//삭제하기
+	/**
+	 * 게시물 삭제할 경우
+	 * 
+	 * 비밀번호확인
+	 * depth가 0일 경우에만 삭제가능
+	 * depth가 0이 아니면 제목/내용 변경 => 관리자가 삭제한 게시물
+	 */
+	public boolean boardDelete(int no, String pwd) {
+		boolean bCheck = false;	//history.back() => delete.jsp
+		try {
+			getConnection();
+			conn.setAutoCommit(false);
+				//비번 검색
+				String sql = "select pwd,root,depth "
+						+ "from jspReplyBoard "
+						+ "where no = ?";
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, no);
+				ResultSet rs = ps.executeQuery();
+				rs.next();
+				String db_pwd = rs.getString(1);
+				int root = rs.getInt(2);
+				int depth = rs.getInt(3);
+				rs.close();
+				
+				//비밀번호 체크
+				if(db_pwd.equals(pwd)) {
+					bCheck = true;	//이동 list.jsp
+					//답변이 있는경우
+					if(depth == 0) {
+						sql = "delete from jspReplyBoard "
+								+ "where no=?";
+						ps = conn.prepareStatement(sql);
+						ps.setInt(1, no);
+						ps.executeUpdate();
+					}else {
+						String msg = "관리자가 삭제한 게시물입니다";
+						sql = "update jspReplyBoard set "
+								+ "subject=?, content=? "
+								+ "where no=?";
+						ps = conn.prepareStatement(sql);
+						ps.setString(1, msg);
+						ps.setString(2, msg);
+						ps.setInt(3, no);
+						ps.executeUpdate();
+					}
+					sql = "update jspReplyBoard set "
+							+ "depth=depth-1 "
+							+ "where no =?";
+					ps=conn.prepareStatement(sql);
+					ps.setInt(1, root);
+					ps.executeUpdate();
+				}
+				conn.commit();
+	
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			try {
+				conn.rollback();
+			}catch(Exception ex) {}
+			
+		}
+		finally {
+			try {
+				conn.setAutoCommit(true);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			disConnection();
+		}
+		return bCheck;
 	}
+	
+}
 

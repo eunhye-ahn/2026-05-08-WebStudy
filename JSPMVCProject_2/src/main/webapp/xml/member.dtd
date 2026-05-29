@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <member>
+	<list>
+		<no></no>
+		<name></name>
+		<address></address>
+		<phone></phone>
+		<email></email>
+	</list>
+	<list>
+		<no></no>
+		<name></name>
+		<address></address>
+		<tel></tel>
+	</list>
+</member> 
+
++ :한번이상
+| : 둘중하나 tr (th|td)*
+* : 0번이상
+? : 0,1
+default : 무조건 한번만
+-->
+
+<!ELEMENT member (list+)>
+<!ELEMENT list (no,name,address,(phone|tel),email?)>
+<!ELEMENT no (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT address (#PCDATA)>
+<!ELEMENT phone (#PCDATA)>
+<!ELEMENT tel (#PCDATA)>
+<!ELEMENT email (#PCDATA)>

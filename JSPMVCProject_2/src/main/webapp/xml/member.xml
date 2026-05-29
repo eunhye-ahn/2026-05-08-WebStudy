@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE member SYSTEM "member.dtd">
+<!-- 
+	SYSTEM / PUBLIC
+	| 비공개	|공개된 DTD
+ -->
+ <member>
+	 <list>
+		 <no></no>
+		 <name></name>
+		 <address></address>
+		 <phone></phone>
+	 </list>
+ </member>

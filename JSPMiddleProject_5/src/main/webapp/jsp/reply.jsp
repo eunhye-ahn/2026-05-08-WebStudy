@@ -25,11 +25,17 @@ post 데이터 감춰서 전송
 <div class="container">
 	<div class="row">
 		<h3>답변하기</h3>
-		<form method="post" action="insert_ok.jsp">
+		<form method="post" action="reply_ok.jsp">
 		<table class="table">
 			<tr>
 				<th width=10% class="text-center">이름</th>
-				<td width=90%><input type="text" size=20 name=name class="input-sm" required></td>
+				<td width=90%>
+					<input type="text" size=20 name=name class="input-sm" required>
+					<input type="hidden" name=pno value="${param.no }">
+					<!-- 
+					${param.no} => request.getParameter("no");
+					 -->
+				</td>
 			</tr>
 			<tr>
 				<th width=10% class="text-center">제목</th>

@@ -15,7 +15,7 @@ model.boardListData(request);
 <link rel ="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container">
+<div class="container" >
 	<div class="row">
 		<h3>묻고 답하기</h3>
 		<table class="table">
@@ -42,8 +42,12 @@ model.boardListData(request);
 					</c:forEach>
 					<img src="../image/re_icon.png">
 					</c:if>
-					<a href="detail.jsp?no=${vo.no }">
-					${vo.subject}
+					<c:if test="${vo.subject!=msg }">
+						<a href="detail.jsp?no=${vo.no }">${vo.subject}</a>
+					</c:if>
+					<c:if test="${vo.subject==msg }">
+						<span style="color:gray">${vo.subject}</span>
+					</c:if>
 					</a>
 					<c:if test="${vo.dbday == today }">
 					&nbsp;<sup><img src="../image/new.gif"></sup>

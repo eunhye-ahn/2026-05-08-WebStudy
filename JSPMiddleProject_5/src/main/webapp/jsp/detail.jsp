@@ -43,7 +43,7 @@ model.boardDetail(request);
 				<td colspan="4" class="text-right">
 					<a href="reply.jsp?no=${vo.no }" class="btn btn-sm btn-success">답변</a>
 					<a href="update.jsp?no=${vo.no }" class="btn btn-sm btn-info">수정</a>
-					<a href="#" class="btn btn-sm btn-warning">삭제</a>
+					<a href="delete.jsp?no=${vo.no }" class="btn btn-sm btn-warning">삭제</a>
 					<a href="list.jsp" class="btn btn-sm btn-danger">목록</a>
 				</td>
 			</tr>

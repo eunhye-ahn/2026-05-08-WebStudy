@@ -39,6 +39,7 @@ public class BoardModel {
 		request.setAttribute("totalpage", totalpage);
 		request.setAttribute("count", count);
 		request.setAttribute("today", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+		request.setAttribute("msg", "관리자가 삭제한 게시물입니다");
 	}
 	
 	public void boardInsert(HttpServletRequest request, HttpServletResponse response) {
@@ -105,7 +106,7 @@ public class BoardModel {
 				
 			}else {
 				
-				response.setContentType("text/plain;charset=UTF-8");
+				response.setContentType("text/html;charset=UTF-8");
 				PrintWriter out = response.getWriter();
 
 				out.write("<script>");
@@ -116,5 +117,59 @@ public class BoardModel {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void boardReply(HttpServletRequest request, HttpServletResponse response) {
+		String no = request.getParameter("pno");
+		String name = request.getParameter("name");
+		String subject = request.getParameter("subject");
+		String content = request.getParameter("content");
+		String pwd = request.getParameter("pwd");
+		
+		BoardVO vo = new BoardVO();
+		vo.setName(name);
+		vo.setSubject(subject);
+		vo.setContent(content);
+		vo.setPwd(pwd);
+		int pno = Integer.parseInt(no);
+		
+		BoardDAO dao = BoardDAO.newInstance();
+		dao.boardReply(pno, vo);
+		
+		try {
+			response.sendRedirect("list.jsp");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void boardDelete(HttpServletRequest request, HttpServletResponse response) {
+		String no = request.getParameter("no");
+		String pwd = request.getParameter("pwd");
+		
+		BoardDAO dao = BoardDAO.newInstance();
+		boolean bCheck = dao.boardDelete(Integer.parseInt(no), pwd);
+		
+		if(bCheck == true) {
+			try {
+				response.sendRedirect("list.jsp");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}else {
+			try {
+				response.setContentType("text/html;charset=UTF-8");
+				PrintWriter out = response.getWriter();
+
+				out.write("<script>");
+				out.write("alert(\"비밀번호가 틀립니다\");");
+				out.write("history.back();");
+				out.write("</script>");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
 	}
 }
