@@ -21,6 +21,7 @@ import org.w3c.dom.NodeList;
 
 import com.sist.model.*;
 
+//DispatcherServlet
 @WebServlet("*.do")
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -55,6 +56,7 @@ public class Controller extends HttpServlet {
 				//System.out.println("id: "+id+", "+"class: "+cls);
 				Class clsName = Class.forName(cls);
 				//리플렉션 메모리할당
+				//HandlerMapping
 				Model model = (Model)clsName.getDeclaredConstructor().newInstance();
 				clsMap.put(id, model);
 				System.out.println("id: "+id+"class: "+model);
@@ -64,19 +66,22 @@ public class Controller extends HttpServlet {
 		}
 	}
 
-	
+	//DispatcherServlet -모든요청을 받아서처리
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//사용자요청 -> 처리 -> 결과값 전송 : GET/POST => 동시처리
 		try {
+			//브라우처 요청 url 추출
+			// ex) /JSPMVCProject_3/main/main.do → "main/main.do"
 			String uri = request.getRequestURI();
 			String key = uri.substring(request.getContextPath().length()+1);
-			//System.out.println(key);
-			//model 클래스찾기
+			
+			// 2. HandlerMapping - URL에 맞는 Model(Controller) 찾기
 			Model model = clsMap.get(key);
-			//요청처리
+			
+			// 3. Controller - 비즈니스 로직 실행 후 JSP 경로 반환
 			String jsp=model.handleRequest(request, response);
-			//결과값을 jsp로 전송
 			RequestDispatcher rd = request.getRequestDispatcher(jsp);
+			
+			// 4. ViewResolver - JSP 경로로 포워딩
 			rd.forward(request, response);
 		}catch(Exception e) {
 			

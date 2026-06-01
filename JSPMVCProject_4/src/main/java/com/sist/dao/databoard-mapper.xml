@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 
+  PreparedStatement / ResultSet
+  SQL문장 작성되는 부분
+  namespace는 XML에서 사용하는 패키지 => 반드시 사용
+   -->
+   <mapper namespace="com.sist.dao.databoard-mapper">
+   <!--  중복코딩 제거 -->
+   <sql id="where-no">
+    WHERE NO=#{no}
+   </sql>
+	   <select id="databoardListData" resultType="DataBoardVO"
+	   	parameterType="int"
+	   >
+		   	SELECT no,subject,name,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday, hit 
+		   	FROM mvcDataBoard 
+		   	ORDER BY no DESC 
+		   	OFFSET #{start} ROWS FETCH NEXT 10 ROWS ONLY 
+	   </select>
+	   <select id="databoardTotalPage" resultType="int">
+	   		SELECT CEIL(count(*)/10.0) FROM mvcDataBoard
+	   </select>
+	   <!--  데이터추가 -->
+	   <insert id="databoardInsert" parameterType="DataBoardVO">
+	   	INSERT INTO mvcDataBoard values(
+	   		mdb_no_seq.nextval,
+	   		#{name},
+	   		#{subject},
+	   		#{content},
+	   		#{pwd},
+	   		SYSDATE,
+	   		0,
+	   		#{filename},
+	   		#{filesize}
+	   	)
+	   </insert>
+	   <!-- 상세보기 -->
+	   <update id="hitIncrement" parameterType="int">
+	   	UPDATE mvcDataBoard SET
+	   	hit=hit+1
+	   	<include refid="where-no"/>
+	   </update>
+	   <select id="databoardDetail" parameterType="int" resultType="DataBoardVO">
+	   	SELECT no,subject,content,name,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday, hit, filename, filesize
+	   	FROM mvcDataBoard
+	   	<include refid="where-no"/>
+	   </select>
+   </mapper>
