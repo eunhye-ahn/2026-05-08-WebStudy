@@ -48,4 +48,5 @@
 	   	FROM mvcDataBoard
 	   	<include refid="where-no"/>
 	   </select>
+	   <!-- 삭제 -->
    </mapper>
