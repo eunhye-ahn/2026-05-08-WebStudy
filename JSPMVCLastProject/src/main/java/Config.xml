@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+  <configuration>
+  <typeAliases>
+  	<typeAlias type="com.sist.vo.FoodVO" alias="FoodVO"/>
+  	<typeAlias type="com.sist.vo.MemberVO" alias="MemberVO"/>
+  	<typeAlias type="com.sist.vo.ReplyVO" alias="ReplyVO"/>
+  </typeAliases>
+  <environments default="development">
+  	<environment id="development">
+  		<transactionManager type="JDBC"/>	<!-- autoCommit -->
+  		<dataSource type="POOLED">	<!-- ConnectionPool -->
+  			<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+  			<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
+  			<property name="username" value="hr"/>
+  			<property name="password" value="happy"/>
+  			<!-- 
+  			property : 변수
+  			name: 변수명
+  			value: 변수값
+  			
+  			<property> => setXXX
+  			{} => getXXX 호출
+  			
+  			DI dependecyInjextion => 의존성주입
+  			setter에 값채우는 것 -> DI
+  			
+  			Conneciton POOL : 미리 커넥션 연결
+  			몇개 연결 / 몇개 사용 / 반환시까지 기다리는 시간
+  			maxActive / maxIdle / maxWait
+  			8			/	8		/	10000   (default)
+  			 -->
+  		</dataSource>
+  	</environment>
+  </environments>
+  <mappers>
+  	<mapper resource="com/sist/mapper/food-mapper.xml" />
+  	<mapper resource="com/sist/mapper/member-mapper.xml" />
+  	<mapper resource="com/sist/mapper/reply-mapper.xml" />
+  </mappers>
+  </configuration>

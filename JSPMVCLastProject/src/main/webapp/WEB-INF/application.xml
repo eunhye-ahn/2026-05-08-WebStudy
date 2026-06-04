@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Model 클래스 : 메뉴 -->
+<beans>
+	<!--  패키지단위 클래스 메모리할당 -->
+	<context:component-scan basepakage="com.sist.model" />
+</beans>
