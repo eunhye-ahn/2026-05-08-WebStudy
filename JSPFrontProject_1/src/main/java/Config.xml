@@ -3,9 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
   <configuration>
+  <!-- VO 등록 -->
   <typeAliases>
-
+	<typeAlias type="com.sist.dao.EmpVO" alias="EmpVO"/>
   </typeAliases>
+  <!-- 오라클 환경설정 : 정보등록 : DBCP -->
   <environments default="development">
   	<environment id="development">
   		<transactionManager type="JDBC"/>	<!-- autoCommit -->
@@ -15,16 +17,6 @@
   			<property name="username" value="hr"/>
   			<property name="password" value="happy"/>
   			<!-- 
-  			property : 변수
-  			name: 변수명
-  			value: 변수값
-  			
-  			<property> => setXXX
-  			{} => getXXX 호출
-  			
-  			DI dependecyInjextion => 의존성주입
-  			setter에 값채우는 것 -> DI
-  			
   			Conneciton POOL : 미리 커넥션 연결
   			몇개 연결 / 몇개 사용 / 반환시까지 기다리는 시간
   			maxActive / maxIdle / maxWait
@@ -33,7 +25,8 @@
   		</dataSource>
   	</environment>
   </environments>
+  <!-- SQL문장 저장소 : Mapper 등록 -->
   <mappers>
-
+	<mapper resource="com/sist/dao/emp-mapper.xml" />
   </mappers>
   </configuration>
