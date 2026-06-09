@@ -30,7 +30,6 @@
 	searchMainDailySeatTicket.do
 	https://www.kobis.or.kr/kobis/business/main/
 	*/
-		
  }
  function movieList(no)
  {

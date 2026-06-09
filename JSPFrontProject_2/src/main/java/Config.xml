@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+  <!-- 
+   (
+   properties? : properties 파일 읽기
+   settings?, : cache 이미 사용된 SQL문장은 다시 사용하지 않게 만든다
+   typeAliases?, : VO등록
+   typeHandlers?, : 데이터형 변환 : TimeStamp => Date
+   environments?, : Connection 생성
+   mappers? : PrepareStatement/ResultSet 
+   태그 사용순서 주의 기술
+   => MyBatis / spring
+   )
+   -->
+  
+ <configuration>
+ <!-- properties 파일 읽기 (보안) -->
+ <properties resource="db.properties" />
+<!-- VO등록 -->
+<typeAliases>
+	<typeAlias type="com.sist.dao.MusicVO" alias="MusicVO"/>
+</typeAliases>
+<!-- 오라클 환경설정 : 정보등록 : DBCP -->
+<environments default="development">
+	<environment id="development">
+		<transactionManager type="JDBC"/>
+		<dataSource type="POOLED">
+			<property name="driver" value="${driver}"/>
+			<property name="url" value="${url}"/>
+			<property name="username" value="${username}"/>
+			<property name="password" value="${password}"/>
+		</dataSource>
+	</environment>
+</environments>
+<!-- mapper 경로설정 -->
+<mappers>
+	<mapper resource="com/sist/dao/music-mapper.xml"/>
+</mappers>
+</configuration>

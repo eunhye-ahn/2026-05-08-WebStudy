@@ -30,6 +30,7 @@ public class MovieModel {
 			
 			URI uri = new URI(baseURL+movie[Integer.parseInt(no)]);
 			URL url = uri.toURL();
+			//Document doc = Jsoup.connection(url).get()
 			String json="";
 			//사이트연결
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
@@ -47,7 +48,7 @@ public class MovieModel {
 			}
 			
 			//System.out.println(json);
-			//브라우저로 전송
+			//브라우저로 전송 <--------------- response.data에 담아서
 			response.setContentType("text/plain;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.write(json);
