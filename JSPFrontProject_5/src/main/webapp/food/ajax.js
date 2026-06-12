@@ -40,20 +40,7 @@
 	$('#pagination').html(pagePrint)
  }
  function change(page){
-	$.ajax({
-		type:'POST',
-		url:'list_ajax.do',
-		data:{"page":page},
-		//callback : 자동호출 : 결과값을 매개변수로 가져옴
-		success:function(json){
-			//현재문자열이들어옴 json (X)
-			console.log(json) 
-			//JSON변환
-			json=JSON.parse(json)
-			console.log(json)
-			foodPrint(json)
-		}
-	})
+	dataRecv(page)
  }
  function dataRecv(page){
 	$.ajax({

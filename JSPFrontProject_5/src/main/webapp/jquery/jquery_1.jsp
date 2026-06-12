@@ -43,7 +43,7 @@
 				  	$(태그).on('click',function(){}) => 리스너 등록
 				  	=> checkbox 처리
 				  4.서버연결
-				  5.효과(약간)/애니메이션 => JqueryUI / plugIN => CDN 	---?????
+				  5.효과(약간)/애니메이션 => JqueryUI / plugIN => CDN 
  --%>
 <!DOCTYPE html>
 <html>
