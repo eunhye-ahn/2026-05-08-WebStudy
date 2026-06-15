@@ -1,0 +1,109 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+.container{
+	width:100%;
+	padding: 0px 50px;
+}
+</style>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('#loginBtn').on('click',function(){
+		//값 읽기
+		let id = $('#id').val()
+		if(!id.trim()){
+			$('#id').focus()
+		}
+		let pwd = $('#pwd').val()
+		if(!pwd.trim()){
+			$('#pwd').focus()
+		}
+		////////유효성검사
+		$.ajax({
+			type: 'post',
+			url: '../member/login.do',
+			data: {"id":id, "pwd":pwd},
+			//콜백함수 => 자동으로 호출 : result(매개변수) => 실제결과값을 가지고있음
+			success: function(result){
+				if(result.trim() == "NOID"){
+					alert("아이디가 존재하지않습니다")
+					$('#id').val("")
+					$('#pwd').val("")
+					$('#id').focus()
+					return;
+				}
+				else if(result.trim() == "NOPWD"){
+					alert("비밀번호가 틀립니다")
+					$('#pwd').val("")
+					$('#pwd').focus()
+					return;
+				}
+				else{
+					location.href="../main/main.do"
+				}
+			}
+		})
+	})
+	$('#logoutBtn').on('click',function(){
+		$.ajax({
+			type:'post',
+			url:'../member/logout.do',
+			success:function(result){
+				if(result.trim() == "yes"){
+					location.href="../main/main.do"
+				}
+			}
+		})
+	})
+	
+})
+</script>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">AJAX/동적쿼리</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">맛집 검색</a></li>
+      <li><a href="#">동영상 검색</a></li>
+      <li><a href="#">커뮤니티</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="container">
+	<div class="row text-right">
+		<c:if test="${sessionScope.id==null }">
+				<table class="table">
+					<tr>
+						<td>
+							ID:<input type="text" id="id" size="15" class="input-sm" name="id">
+							PW:<input type="password" id="pwd" size="15" class="input-sm" name="pwd">
+							<button id="loginBtn" class="btn-sm btn-danger" type="button">로그인</button>
+						</td>
+					</tr>
+				</table>
+		</c:if>
+		<c:if test="${sessionScope.id!=null }">
+				<table class="table">
+					<tr>
+						<td>
+							${sessionScope.name }님이 로그인되었습니다
+							<button id="logoutBtn" class="btn-sm btn-primary" type="button">로그아웃</button>
+						</td>
+					</tr>
+				</table>
+		</c:if>
+	</div>
+</div>
+</body>
+</html>
