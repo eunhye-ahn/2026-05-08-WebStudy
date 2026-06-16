@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.emp-mapper">
+<!-- 
+	<if> : 조건문 = <choose> :다중조건문
+	<trim> : 제거/추가
+	<foreach> : 반목문
+	<bind> : 중복된 데이터를 변수형으로 처리
+	<where>, <set>
+	
+	1.if
+	2.foreach
+	3.choose
+	4.where
+	5.trim
+	6.bind
+	
+	sql 문장 여러개를 동시 수행 => foreign key DLETE
+	procedure 사용 : 공통기반 / 좋아요 / 찜하기
+	
+	<foreach collection="data" item="emp" separator="," open="(" close=")">
+									====배열/list에서 값 추출
+						=====배열/list
+						
+	<trim>
+		prefix => 앞에 추가
+		prefixOverrides  => 앞에 내용 삭제
+		suffix  => 뒤에 추가
+		suffixOverrides  => 뒤에 내용 삭제
+ -->
+
+ 	<select id="empFind" parameterType="EmpVO" resultType="EmpVO">
+ 		SELECT empno, ename, job, TO_CHAR(hiredate,'YYYY-MM-DD') AS dbday, sal, deptno
+ 		FROM emp
+ 		<where>				<!-- 자동으로 WHERE 첫번째 OR/AND 제거 -->
+ 			<if test="empno!=0">
+ 				AND empno=#{empno}
+ 			</if>
+ 			<if test="ename!=null and ename!=''">
+ 				AND ename LIKE '%'||#{ename}||'%'
+ 			</if>
+ 			<if test="deptno!=0">
+ 				AND deptno=#{deptno}
+ 			</if>
+ 		</where>
+ 	</select>
+
+ 	<select id="empFind2" resultType="EmpVO" parameterType="string">
+ 		<!-- 변수설정 -->
+ 		<bind 
+ 			name="keyword"
+ 			value="'%'+ename+'%'"
+ 		/>
+ 		SELECT empno, ename, job,  TO_CHAR(hiredate,'YYYY-MM-DD') AS dbday, sal, deptno
+ 		FROM emp
+ 		WHERE ename LIKE #{keyword}
+ 	</select>
+ 	<select id="empFind3" resultType="EmpVO" parameterType="string">
+ 		SELECT empno, ename, job,  TO_CHAR(hiredate,'YYYY-MM-DD') AS dbday, sal, deptno
+ 		FROM emp
+ 		WHERE
+ 		<choose>
+ 			<when test="job=='MANAGER'">
+ 				sal>=3000
+ 			</when>
+ 			<when test="job=='SALESMAN'">
+ 				sal>=1500
+ 			</when>
+ 			<otherwise>
+ 				sal>=1000
+ 			</otherwise>
+ 		</choose>
+ 	</select>
+ 	<!-- 
+ 		{7788,7890,7460}
+ 	 -->
+ 	<select id="empFind4" resultType="EmpVO" parameterType="hashmap">
+ 		SELECT empno, ename, job,  TO_CHAR(hiredate,'YYYY-MM-DD') AS dbday, sal, deptno
+ 		FROM emp
+ 		WHERE empno IN
+ 		<foreach collection="data" item="emp" separator=","
+ 			open="(" close=")"
+ 		>
+ 			#{emp}
+ 		</foreach>
+ 	</select>
+ 	<select id="empGetData" resultType="EmpVO">
+ 		SELECT empno, ename
+ 		FROM emp
+ 		ORDER BY empno ASC
+ 	</select>
+	 <select id="empFind5" parameterType="EmpVO" resultType="EmpVO">
+ 		SELECT empno, ename, job,  TO_CHAR(hiredate,'YYYY-MM-DD') AS dbday, sal, deptno
+ 		FROM emp
+ 		<trim prefix="WHERE" prefixOverrides="AND|OR">
+ 			<if test="ename!=null and ename!=''">
+ 				AND ename LIKE '%'||#{ename}||'%'
+ 			</if>
+ 			<if test="job!=null and job!=''">
+ 				AND job LIKE '%'||#{job}||'%'
+ 			</if>
+ 		</trim>
+ 	</select>
+</mapper>

@@ -13,6 +13,7 @@
   	<typeAlias type="com.sist.vo.MemberVO" alias="MemberVO"/>
   	<typeAlias type="com.sist.vo.FoodVO" alias="FoodVO"/>
   	<typeAlias type="com.sist.vo.ReplyVO" alias="ReplyVO"/>
+  	<typeAlias type="com.sist.vo.EmpVO" alias="EmpVO"/>
   </typeAliases>
   <!-- 오라클 환경설정(Connection) : 정보등록 : DBCP -->
   <environments default="development">
@@ -31,5 +32,6 @@
   	<mapper resource="com/sist/mapper/member-mapper.xml"/>
   	<mapper resource="com/sist/mapper/food-mapper.xml"/>
   	<mapper resource="com/sist/mapper/reply-mapper.xml"/>
+  	<mapper resource="com/sist/mapper/emp-mapper.xml"/>
   </mappers>
   </configuration>

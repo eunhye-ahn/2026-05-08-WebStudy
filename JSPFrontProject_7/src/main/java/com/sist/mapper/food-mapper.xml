@@ -16,4 +16,15 @@
 		WHERE no=#{no}
 	</select>
 	<!-- 동적쿼리 -->
+	<select id="foodFindData" resultType="FoodVO" parameterType="hashmap">
+		SELECT no,name,poster,address
+		FROM food
+		WHERE ${column} LIKE '%'||#{fd}||'%'
+		ORDER BY no ASC
+		OFFSET #{start} ROWS FETCH NEXT 12 ROWS ONLY
+	</select>
+	<select id="foodFindTotalPage" resultType="int" parameterType="hashmap">
+		SELECT CEIL(COUNT(*)/12.0) FROM food
+		WHERE ${column} LIKE '%'||#{fd}||'%'
+	</select>
 </mapper>

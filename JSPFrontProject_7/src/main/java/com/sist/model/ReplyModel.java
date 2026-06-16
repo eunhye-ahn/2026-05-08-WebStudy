@@ -39,4 +39,29 @@ public class ReplyModel {
 		
 		return "redirect:../food/detail.do?no="+Integer.parseInt(fno);
 	}
+	//		DispatcherServlet
+	//요청>JSP>mapper.xml>DAO>Model>확인(JSP)
+	@RequestMapping("reply/update.do")
+	public String reply_update(HttpServletRequest request, HttpServletResponse response) {
+		String no = request.getParameter("no");
+		String msg = request.getParameter("msg");
+		String fno = request.getParameter("fno");
+		
+		Map map = new HashMap();
+		map.put("no", no);
+		map.put("msg", msg);
+		
+		ReplyDAO.replyUpdate(map);
+		
+		return "redirect:../food/detail.do?no="+Integer.parseInt(fno);
+	}
+	@RequestMapping("reply/delete.do")
+	public String reply_delete(HttpServletRequest request, HttpServletResponse response) {
+		String no = request.getParameter("no");
+		String fno = request.getParameter("fno");
+		
+		ReplyDAO.replyDelete(Integer.parseInt(no));
+		
+		return "redirect:../food/detail.do?no="+Integer.parseInt(fno);
+	}
 }

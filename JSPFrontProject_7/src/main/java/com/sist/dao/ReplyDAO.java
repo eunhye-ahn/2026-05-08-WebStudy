@@ -29,6 +29,15 @@ public class ReplyDAO {
 				INSERT INTO reply 
 				VALUES(#{no),#{fno},#{id},#{name},#{msg},SYSDATE)
 		</insert>
+		<update id="replyUpdate" parameterType="hashmap">
+			UPDATE reply SET
+			msg= #{msg} 
+			WHERE no = #{no}
+		</update>
+		<delete id="replyDelete" parameterType="int">
+			DELETE FROM reply
+			WHERE no=#{no}
+		</delete>
 	 */
 	public static List<ReplyVO> replyListData(int fno){
 		SqlSession session = ssf.openSession();
@@ -40,6 +49,18 @@ public class ReplyDAO {
 	public static void replyInsert(ReplyVO vo) {
 		SqlSession session = ssf.openSession(true);
 		session.insert("replyInsert",vo);
+		session.close();
+	}
+	public static void replyUpdate(Map map) {
+		SqlSession session = ssf.openSession(true);
+		session.update("replyUpdate",map);
+		session.close();
+	}
+	public static void replyDelete(int no) {
+		SqlSession session = ssf.openSession(true);
+		session.delete("replyDelete",no);
+		//session.update("replyDelete",no);
+		//insert/update/delete => update로도 동작이 가능하다
 		session.close();
 	}
 }
