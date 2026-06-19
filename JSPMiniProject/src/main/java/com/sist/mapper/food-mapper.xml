@@ -21,9 +21,9 @@
 		WHERE no=#{no}
 	</select>
 	<select id="foodRearData" resultType="FoodVO" parameterType="string">
-    SELECT no,name,poster,address,rownum
-    FROM food
-    WHERE address LIKE '%'||#{address}||'%'
-    AND rownum&lt;=7
-  </select>
+	    SELECT no,name,poster,address,rownum
+	    FROM food
+	    WHERE address LIKE '%'||#{address}||'%'
+	    AND rownum <![CDATA[<=]]> 7
+  	</select>
 </mapper>

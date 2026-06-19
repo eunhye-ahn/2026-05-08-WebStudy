@@ -69,7 +69,7 @@ public class FoodModel {
 		List<FoodVO> list = FoodDAO.foodRearData(addrs[2]);
 		
 		request.setAttribute("vo", vo);
-		request.setAttribute("list", vo);
+		request.setAttribute("list", list);
 		request.setAttribute("main_jsp", "../food/detail.jsp");
 		return "../main/main.jsp";
 	}
