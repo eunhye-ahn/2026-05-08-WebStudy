@@ -73,4 +73,5 @@ public class FoodModel {
 		request.setAttribute("main_jsp", "../food/detail.jsp");
 		return "../main/main.jsp";
 	}
+	
 }
