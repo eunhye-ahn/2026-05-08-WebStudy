@@ -56,7 +56,7 @@ a.link{
 	<button type="button" class="btn-sm btn-warning" @click="select(2)">양식</button>
 	<button type="button" class="btn-sm btn-info" v-on:click="select(3)">중식</button>
 	<button type="button" class="btn-sm btn-primary" v-on:click="select(4)">일식</button>
-	<button type="button" class="btn-sm btn-success">기타</button>
+	<button type="button" class="btn-sm btn-success" @click="select(5)">기타</button>
 	</div>
 	<div class="row text-center" style="margin-top:20px">
 		<div v-if="type===0">
@@ -69,9 +69,12 @@ a.link{
 			양식 선택
 		</div>
 		<div v-else-if="type===3">
+			중식 선택
+		</div>
+		<div v-else-if="type===4">
 			일식 선택
 		</div>
-		<div v-else="type===4">
+		<div v-else>
 			기타 선택
 		</div>
 	</div>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	vo.setName(rs.getString("goods_name"))
+	
+	private int no,discount,hit,won;
+	private String name,sub,price,fPrice,delivery;
+	
+	<property name="age" value="20"> : setAge(20)
+	<bean property="age" value="30"> : setAge(30)
+	=> DI (의존성주입) => 직접 변경하지않고 xml을 통해서 값을 주입하는 것
+	
+	#{name} : getName()
+	
+	JOIN
+	vo.getDvo().setDname()
+	<result property="dvo.name" column="dname">
+	
+	parameterMap = 프로시저
+	resultMap = db의 칼럼명과 vo의 변수명이 다를경우
+ -->
+<mapper namespace="com.sist.dao.goods-mapper">
+	<resultMap type="com.sist.vo.GoodsVO" id="goodsMap">
+		<result property="name" column="goods_name"/>
+		<result property="sub" column="goods_sub"/>
+		<result property="price" column="goods_price"/>
+		<result property="fPrice" column="goods_first_price"/>
+		<result property="delivery" column="goods_delivery"/>
+		<result property="discount" column="goods_discount"/>
+		<result property="poster" column="goods_poster"/>
+	</resultMap>
+	<select id="goodsListData" resultMap="goodsMap" parameterType="int">
+		SELECT no,goods_name,goods_poster,goods_price
+		FROM goods_all
+		ORDER BY no ASC
+		OFFSET #{start} ROWS FETCH NEXT 12 ROWS ONLY
+	</select>
+	<select id="goodsTotalPage" resultType="int">
+		SELECT CEIL(COUNT(*)/12.0)
+		FROM goods_all
+	</select>
+</mapper>

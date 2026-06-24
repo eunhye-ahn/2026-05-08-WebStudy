@@ -35,7 +35,7 @@ p{
 			<div class="col-sm-3" v-for="vo in food_list">
 				<a class="a-link" @click="detail(vo.no)">
 					<div class="thumbnail">
-						<img :src="vo.poster" style="width:250px;height:130px;object-fit:cover">
+						<img :src="vo.poster" style="width:250px;height:150px;object-fit:cover">
 						<p v-text="vo.name"></p>
 					</div>
 				</a>

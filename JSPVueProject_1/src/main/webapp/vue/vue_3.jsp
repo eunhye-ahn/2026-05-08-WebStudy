@@ -40,7 +40,7 @@ h1 {
 		   }
 	   }
    }).mount("#a")
-   let a=Vue.createApp({
+   let b=Vue.createApp({
 	   data(){
 		   return {
 			   msg:'Hello b영역'
