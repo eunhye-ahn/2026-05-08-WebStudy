@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.dao.board-mapper">
+	<sql id="where-no">
+		WHERE no=#{no}
+	</sql>
+	<select id="boadListData" parameterType="int" resultType="BoardVO">
+		SELECT no,name,subject,TO_CHAR(regdate,'yyyy-mm-dd') as dbday, hit
+		FROM mvcdataboard
+		ORDER BY no DESC
+		OFFSET #{start} ROWS FETCH NEXT 12 ROWS ONLY
+	</select>
+	<select id="boadTotalPage" resultType="int">
+		SELECT CEIL(COUNT(*)/12.0)
+		FROM mvcdataboard
+	</select>
+	<update id="hitIncrement" parameterType="int">
+		UPDATE mvcdataboard SET
+		hit=hit+1
+		<include refid="where-no"></include>
+	</update>
+	<select id="boardDetailData" parameterType="int" resultType="BoardVO">
+		SELECT no,name,subject,TO_CHAR(regdate,'yyyy-mm-dd hh24:mi:ss') as dbday,content,hit
+		FROM mvcdataboard
+		<include refid="where-no"></include>
+	</select>
+	<insert id="boardInsert" parameterType="BoardVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(no)+1,1) as no FROM mvcdataboard
+		</selectKey>
+		INSERT INTO mvcdataboard VALUES(
+			#{no},
+			#{name},
+			#{subject}
+			#{content},
+			#{pwd},
+			SYSDATE,
+			0,
+			null,
+			null
+		)
+	</insert>
+	<delete id="boardDelete" parameterType="int">
+		DELETE FROM mvcdataboard WHERE no=#{no}
+	</delete>
+</mapper>

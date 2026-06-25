@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<properties resource="db.properties"/>
+	<settings>
+		<setting name="cacheEnabled" value="true"/>
+		<!-- 캐시활성화 : 동일 쿼리를 반복 실행하면 DB를 조회하지 않는다 -->
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<!-- ??자동카멜케이스? : user_name -> userName -->
+		<setting name="callSettersOnNulls" value="true"/>
+		<!-- ??null값이 있는 경우 : setter호출 -->
+		<setting name="logImpl" value="STDOUT_LOGGING"/>
+		<!-- sql실행 로그 출력 -->
+	</settings>
+	<typeAliases>
+		<typeAlias type="com.sist.vo.BoardVO" alias="BoardVO"/>
+	</typeAliases>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}"/>
+				<property name="url" value="${url}"/>
+				<property name="username" value="${username}"/>
+				<property name="password" value="${password}"/>
+				<property name="poolMaximumActiveConnections" value="${maxActive}"/>
+				<property name="poolMaximumIdleConnections" value="${maxIdle}"/>
+				<property name="poolTimeToWait" value="${maxWait}"/>
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="com/sist/dao/board-mapper.xml"/>
+		<!--  include -->
+	</mappers>
+</configuration>
