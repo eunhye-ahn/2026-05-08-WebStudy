@@ -58,7 +58,7 @@ a{
 				</tr>
 				<tr>
 					<td colspan="4" class="text-right">
-						<a href="" class="btn btn-sm btn-warning">수정</a>
+						<a :href="'../board/update.jsp?no='+board_detail.no" class="btn btn-sm btn-warning">수정</a>
 						<span class="btn btn-sm btn-warning" @click="btnClick()">{{isOn?'삭제':'취소'}}</span>
 						<a href="../board/list.jsp" class="btn btn-sm btn-warning">목록</a>
 					</td>
@@ -116,6 +116,12 @@ const detail = Vue.createApp({
 				}
 			}).then(res=>{
 				console.log(res)
+				if(res.data=="yes"){
+					window.location.href="../board/list.jsp"
+				}
+				else{
+					alert("비밀번호가 틀립니다")
+				}
 			})
 		}
 	}

@@ -43,4 +43,16 @@
 	<delete id="boardDelete" parameterType="int">
 		DELETE FROM mvcdataboard WHERE no=#{no}
 	</delete>
+	<update id="boardUpdate" parameterType="BoardVO">
+		UPDATE mvcdataboard SET 
+		name=#{name},
+		subject=#{subject},
+		content=#{content}
+		WHERE no=#{no}
+	</update>
+	<select id="pwdCheck" parameterType="int" resultType="string">
+		SELECT pwd
+		FROM mvcdataboard
+		WHERE no=#{no}
+	</select>
 </mapper>

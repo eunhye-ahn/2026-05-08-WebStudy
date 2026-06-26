@@ -91,10 +91,45 @@ public class BoardDAO {
 	 * <delete id="boardDelete" parameterType="int">
 		DELETE FROM mvcdataboard WHERE no=#{no}
 	</delete>
+	
+	유효성체크
 	 */
-	public static void boardDelete(int no) {
+	public static boolean boardDelete(int no,String pwd) {
 		SqlSession session = ssf.openSession(true);
-		session.delete("boardDelete",no);
+		boolean bCheck=false;
+		String db_pwd = session.selectOne("pwdCheck",no);
+		if(pwd.equals(db_pwd)) {
+			bCheck=true;
+			session.delete("boardDelete");
+		}
 		session.close();
+		return bCheck;
+	}
+	/**
+	 * <update id="boardUpdate" parameterType="BoardVO">
+		UPDATE mvcdataboard SET 
+		name=#{name},
+		subject=#{subject}
+		content=#{content}
+		WHERE no=#{no}
+	</update>
+	<select id="pwdCheck" parameterType="int" resultType="string">
+		SELECT password
+		FROM mvcdataboard
+		WHERE no=#{no}
+	</select>
+	
+	유효성체크
+	 */
+	public static boolean boardUpdate(BoardVO vo) {
+		SqlSession session = ssf.openSession(true);
+		boolean bCheck=false;
+		String db_pwd = session.selectOne("pwdCheck",vo.getNo());
+		if(vo.getPwd().equals(db_pwd)) {
+			bCheck=true;
+			session.update("boardUpdate",vo);
+		}
+		session.close();
+		return bCheck;
 	}
 }

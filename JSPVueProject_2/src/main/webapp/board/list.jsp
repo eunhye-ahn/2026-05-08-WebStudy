@@ -54,7 +54,7 @@ h3 {
 				<td class="text-center">
 					<ul class="pagination">
 						<li v-if="curpage>1"><a @click="move(curpage-1)">이전</a></li>
-						{{curpage}} page / {{totalpage}} pages
+						<p>{{curpage}} page / {{totalpage}} pages</p>
 						<li v-if="curpage<totalpage"><a @click="move(curpage+1)">다음</a></li>
 					</ul>
 				</td>

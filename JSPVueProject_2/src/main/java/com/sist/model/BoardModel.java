@@ -99,20 +99,17 @@ public class BoardModel {
 		BoardVO vo = BoardDAO.boardDetailData(Integer.parseInt(no));
 		String msg = "";
 		System.out.println(msg);
-		if(pwd.trim().equals(vo.getPwd())) {
-			msg = "yes";
-			BoardDAO.boardDelete(Integer.parseInt(no));
+		boolean bCheck = BoardDAO.boardDelete(Integer.parseInt(no), pwd);
+		if(bCheck) {
+			msg="yes";
 		}
 		else {
-			msg = "no";
+			msg="no";
 		}
-		
-		Map map = new HashMap();
-		map.put("msg",msg);
 		
 		try {
 			ObjectMapper mapper = new ObjectMapper();
-			String json = mapper.writeValueAsString(map);
+			String json = mapper.writeValueAsString(msg);
 			
 			response.setContentType("text/plain;charset=UTF-8");
 			PrintWriter out = response.getWriter();
@@ -120,5 +117,38 @@ public class BoardModel {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	@RequestMapping("board/update_vue.do")
+	public void board_update(HttpServletRequest request, HttpServletResponse response) {
+		String no = request.getParameter("no");
+		String name = request.getParameter("name");
+		String subject = request.getParameter("subject");
+		String content = request.getParameter("content");
+		String pwd = request.getParameter("pwd");
+		BoardVO vo = new BoardVO();
+		vo.setNo(Integer.parseInt(no));
+		vo.setName(name);
+		vo.setSubject(subject);
+		vo.setContent(content);
+		vo.setPwd(pwd);
+		
+		String msg = "no";
+		boolean bCheck = BoardDAO.boardUpdate(vo);
+		
+		if(bCheck) {
+			msg="yes";
+		}
+		
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			String json = mapper.writeValueAsString(msg);
+			
+			response.setContentType("text/plain;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.write(json);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
