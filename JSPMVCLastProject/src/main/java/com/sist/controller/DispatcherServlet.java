@@ -106,8 +106,11 @@ public class DispatcherServlet extends HttpServlet {
 				Method[] methods = clsName.getDeclaredMethods();
 				//메서드찾기
 				for(Method m : methods) {
+					if(!m.isAnnotationPresent(RequestMapping.class))
+						continue;
 					//@RequestMapping
 					RequestMapping rm = m.getAnnotation(RequestMapping.class);
+					
 					if(rm.value().equals(cmd)) {
 						String jsp = (String)m.invoke(obj, request, response);
 						
