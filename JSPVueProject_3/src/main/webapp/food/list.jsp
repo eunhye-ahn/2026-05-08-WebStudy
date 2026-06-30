@@ -30,11 +30,11 @@ p{
 <body>
 <div class="container" id="listApp">
 	<div class="row">
-			<div class="col-sm-3" v-for="(item,index) in goods_list" :key="index">
-				<a :href="'../goods/detail_vue.do?no='+item.no">
+			<div class="col-sm-3" v-for="(item,index) in food_list" :key="index">
+				<a :href="'../food/detail.do?no='+item.no">
 					<div class="thumbnail">
-						<img :src="item.goods_poster" style="width:250px;height:130px;object-fit:cover" >
-						<p>{{item.goods_name}}</p>
+						<img :src="item.poster" style="width:250px;height:130px;object-fit:cover" >
+						<p>{{item.name}}</p>
 					</div>
 				</a>
 			</div>
@@ -67,13 +67,13 @@ let list=Vue.createApp({
 	},
 	methods:{
 		dataRecv(){
-			axios.get("../goods/list.do",{
+			axios.get("../food/list_vue.do",{
 				params:{
 					page:this.curpage
 				}
 			}).then(res=>{
 				//console.log(res)
-				this.goods_list=res.data.goods_list
+				this.food_list=res.data.food_list
 				this.curpage=res.data.curpage
 				this.totalpage=res.data.totalpage
 				this.endPage=res.data.endPage

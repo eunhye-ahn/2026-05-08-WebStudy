@@ -47,4 +47,5 @@ public class MemberDAO {
 		session.close();
 		return vo;
 	}
+	
 }

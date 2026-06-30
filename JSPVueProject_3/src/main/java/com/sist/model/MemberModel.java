@@ -31,7 +31,9 @@ public class MemberModel {
 	@RequestMapping("member/logout.do")
 	public void member_logout(HttpServletRequest request, HttpServletResponse response) {
 		//세션삭제
-		
-		
+		HttpSession session = request.getSession();
+		session.setAttribute("id", "");
+		session.setAttribute("name", "");
+		session.setAttribute("isadmin", "");
 	}
 }

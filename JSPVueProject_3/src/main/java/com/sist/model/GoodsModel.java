@@ -51,12 +51,16 @@ public class GoodsModel {
 	
 	@RequestMapping("goods/detail_vue.do")
 	public String goods_detail_vue(HttpServletRequest request, HttpServletResponse response) {
+		String no = request.getParameter("no");
+		request.setAttribute("no", no);
+		request.setAttribute("cno", 1);
 		request.setAttribute("main_jsp", "../goods/detail.jsp");
 		return "../main/main.jsp";
 	}
 	
 	@RequestMapping("goods/detail.do")
 	public void goods_detail(HttpServletRequest request, HttpServletResponse response) {
+		
 		String no = request.getParameter("no");
 		GoodsVO vo = GoodsDAO.goodsDetailData(Integer.parseInt(no));
 		String p=vo.getGoods_price();

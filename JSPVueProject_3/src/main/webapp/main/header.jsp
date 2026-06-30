@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,11 +15,13 @@
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="../main/main.do">Home</a></li>
+      <li><a href="../food/list.do">맛집</a></li>
       <li><a href="../member/join.do">회원가입</a></li>
       <li><a href="../chat/chat.do">채팅</a></li>
       <li><a href="../new/news.do">실시간뉴스</a></li>
     </ul>
   </div>
 </nav>
+
 </body>
 </html>
