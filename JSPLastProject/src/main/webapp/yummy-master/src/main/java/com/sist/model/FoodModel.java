@@ -1,0 +1,151 @@
+package com.sist.model;
+
+import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import com.sist.controller.Controller;
+import com.sist.controller.RequestMapping;
+import com.sist.dao.FoodDAO;
+import com.sist.vo.FoodVO;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@Controller
+public class FoodModel {
+	/**
+	 * 			request						request				
+	 * 브라우저 -------------- controller ------------- model -------------- dao
+	 * 							|						|
+	 * 							|					request.setAttribute()
+	 * 							|						|
+	 * 							-----------------------
+	 * 요청														
+	 * .do
+	 */
+	@RequestMapping("food/find.do")
+	public String food_find(HttpServletRequest request, HttpServletResponse response) {
+		//fdArr / start / column / ss
+		/*
+		String strpage = request.getParameter("page");
+		if(strpage == null) {
+			strpage = "1";
+		}
+		int curpage = Integer.parseInt(strpage);
+		String column = request.getParameter("column");
+		if(column == null) {
+			column = "address";
+		}
+		String ss = request.getParameter("ss");
+		if(ss == null) {
+			ss = "마포";
+		}
+		String[] types = request.getParameterValues("type");
+		
+		final int ROW_SIZE = 12;
+		int start = (curpage*ROW_SIZE)-ROW_SIZE;
+		
+		Map map = new HashMap();
+		map.put("start", start);
+		map.put("fdArr", types);
+		map.put("column", column);
+		map.put("ss", ss);
+		
+		List<FoodVO> list = FoodDAO.foodFindData(map);
+		int count = FoodDAO.foodFindCount(map);
+		
+		int totalpage = (int)(Math.ceil(count/(double)ROW_SIZE));
+		
+		final int BLOCK = 10;
+		int startPage = ((curpage-1)/BLOCK*BLOCK)+1;
+		int endPage = ((curpage-1)/BLOCK*BLOCK)+BLOCK;
+		if(endPage>totalpage) {
+			endPage = totalpage;
+		}
+		
+		request.setAttribute("list", list);
+		request.setAttribute("totalpage", totalpage);
+		request.setAttribute("curpage", curpage);
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("count", count);
+		request.setAttribute("ss", ss);
+		*/
+
+		return "find.jsp";
+	}
+	  @RequestMapping("food/find_ajax.do")
+	  public void food_find_ajax(HttpServletRequest request,
+			  HttpServletResponse response)
+	  {
+		  String page=request.getParameter("page");
+		  if(page==null)
+			  page="1";
+		  String column=request.getParameter("column");
+		  if(column==null)
+			  column="address";
+		  String ss=request.getParameter("ss");
+		  if(ss==null)
+			  ss="마포";
+		  String[] types=request.getParameterValues("type");
+		  System.out.println(Arrays.toString(types));
+		  int curpage=Integer.parseInt(page);
+		  final int ROWSIZE=12;
+		  int start=(curpage*ROWSIZE)-ROWSIZE;
+		  
+		  Map map=new HashMap();
+		  map.put("ss",ss);
+		  map.put("start",start);
+		  map.put("column", column);
+		  map.put("fdArr", types);
+		  List<FoodVO> list=FoodDAO.foodFindData(map);
+		  int count=FoodDAO.foodFindCount(map);
+		  
+		  int totalpage=(int)(Math.ceil(count/(double)ROWSIZE));
+		  
+		  final int BLOCK=10;
+		  int startPage=((curpage-1)/BLOCK*BLOCK)+1;
+		  int endPage=((curpage-1)/BLOCK*BLOCK)+BLOCK;
+		  
+		  if(endPage>totalpage)
+			  endPage=totalpage;
+		  int i=0;
+		  // 자바 => 자바스크립트 형태로 변경 => JSON 
+		  JSONArray arr=new JSONArray(); // List
+		 for(FoodVO vo:list)
+		  {
+			  JSONObject obj=new JSONObject();
+			  obj.put("no",vo.getNo());
+			  obj.put("name", vo.getName());
+			  obj.put("poster", vo.getPoster());
+			  obj.put("address", vo.getAddress());
+			  obj.put("type",vo.getType());
+			  // {no:1,name:'',poster:''...}
+			  if(i==0)
+			  {
+				  obj.put("curpage",curpage);
+				  obj.put("totalpage", totalpage);
+				  obj.put("startPage", startPage);
+				  obj.put("endPage", endPage);
+				  obj.put("count",count);
+				  obj.put("ss", ss);
+			  }
+			  arr.add(obj); //[{},{}...]
+			  i++;
+		  }
+		  try
+		  {
+			  response.setContentType("text/plain;charset=UTF-8");
+			  //                일반문자열 / HTML => text/html 
+			  //                JSON => text/plain
+			  PrintWriter out=response.getWriter();
+			  out.write(arr.toJSONString());
+		  }catch(Exception ex) {}
+	}
+}

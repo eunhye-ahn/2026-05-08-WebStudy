@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%--
+   예약 / 장바구니 / 찜하기 /
+   이중 include 
+   관리자 페이지 / 마이 페이지 
+   ---------------------
+   | 부메뉴 
+ --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +14,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<!-- ****** Categories Area Start ****** -->
+    
+
+    <!-- ****** Categories Area Start ****** -->
     <section class="categories_area clearfix" id="about">
         <div class="container">
             <div class="row">
@@ -16,7 +25,7 @@
                         <img src="../img/catagory-img/1.jpg" alt="">
                         <div class="catagory-title">
                             <a href="#">
-                                <h5>맛집여행</h5>
+                                <h5>Food</h5>
                             </a>
                         </div>
                     </div>
@@ -26,7 +35,7 @@
                         <img src="../img/catagory-img/2.jpg" alt="">
                         <div class="catagory-title">
                             <a href="#">
-                                <h5>레시피</h5>
+                                <h5>Cooking</h5>
                             </a>
                         </div>
                     </div>
@@ -36,7 +45,7 @@
                         <img src="../img/catagory-img/3.jpg" alt="">
                         <div class="catagory-title">
                             <a href="#">
-                                <h5>날씨</h5>
+                                <h5>Life Style</h5>
                             </a>
                         </div>
                     </div>
@@ -464,7 +473,7 @@
                                 <h6>About Me</h6>
                             </div>
                             <div class="about-me-widget-thumb">
-                                <img src="../img/about-img/1.jpg" alt="">
+                                <img src="img/about-img/1.jpg" alt="">
                             </div>
                             <h4 class="font-shadow-into-light">Shopia Bernard</h4>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt</p>
@@ -577,6 +586,5 @@
         </div>
     </section>
     <!-- ****** Blog Area End ****** -->
-
 </body>
 </html>

@@ -5,9 +5,33 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+.link{
+  cursor: pointer;
+}
+</style>
+<link rel="stylesheet" href="../shadow/css/shadowbox.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript" src="../shadow/js/shadowbox.js"></script>
+<script type="text/javascript">
+ Shadowbox.init({
+	 players:['iframe']
+ })
+ $(function(){
+	 $('#login').on('click',function(){
+		 Shadowbox.open({
+			 content:'../member/login.jsp',
+			 player:'iframe',
+			 width:500,
+			 height:250,
+			 title:'로그인'
+		 })
+	 })
+ })
+</script>
 </head>
 <body>
-    <div class="top_header_area">
+<div class="top_header_area">
         <div class="container">
             <div class="row">
                 <div class="col-5 col-sm-6">
@@ -25,10 +49,10 @@
                     <div class="signup-search-area d-flex align-items-center justify-content-end">
                         <div class="login_register_area d-flex">
                             <div class="login">
-                                <a href="register.html">Sign in</a>
+                                <a class="link" id="login">로그인</a>
                             </div>
-                            <div class="register">
-                                <a href="register.html">Sign up</a>
+                            <div class="logout">
+                                <a class="link" id="logout">로그아웃</a>
                             </div>
                         </div>
                         <!-- Search Button Area -->
@@ -36,13 +60,13 @@
                             <a class="searchBtn" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
                         </div>
                         <!-- Search Form -->
-                        <div class="search-hidden-form">
+                        <!-- <div class="search-hidden-form">
                             <form action="#" method="get">
                                 <input type="search" name="search" id="search-anything" placeholder="Search Anything...">
                                 <input type="submit" value="" class="d-none">
                                 <span class="searchBtn"><i class="fa fa-times" aria-hidden="true"></i></span>
                             </form>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -73,60 +97,29 @@
                                     <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">회원</a>
+                                    <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
                                     <div class="dropdown-menu" aria-labelledby="yummyDropdown">
-                                        <a class="dropdown-item" href="index.html">회원가입</a>
-                                        <a class="dropdown-item" href="archive.html">아이디찾기</a>
-                                        <a class="dropdown-item" href="single.html">비밀번호찾기</a>
-                                    </div>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">여행</a>
-                                    <div class="dropdown-menu" aria-labelledby="yummyDropdown">
-                                        <a class="dropdown-item" href="index.html">서울여행</a>
-                                        <a class="dropdown-item" href="archive.html">부산여행</a>
-                                        <a class="dropdown-item" href="single.html">제주여행</a>
-                                        <a class="dropdown-item" href="single.html">코스추천</a>
-                                    </div>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">맛집</a>
-                                    <div class="dropdown-menu" aria-labelledby="yummyDropdown">
-                                        <a class="dropdown-item" href="../food/list.do">맛집목록</a>
-                                        <a class="dropdown-item" href="archive.html">맛집예약</a>
-                                        <a class="dropdown-item" href="single.html">맛집추천</a>
-                                        <a class="dropdown-item" href="single.html">맛집검색</a>
-                                    </div>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">레시피</a>
-                                    <div class="dropdown-menu" aria-labelledby="yummyDropdown">
-                                        <a class="dropdown-item" href="index.html">레시피</a>
-                                        <a class="dropdown-item" href="archive.html">쉐프</a>
-                                        <a class="dropdown-item" href="single.html">레시피등록</a>
-                                        <a class="dropdown-item" href="single.html">가격비교</a>
-                                    </div>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">커뮤니티</a>
-                                    <div class="dropdown-menu" aria-labelledby="yummyDropdown">
-                                        <a class="dropdown-item" href="../board/list.do">자유게시판</a>
-                                        <a class="dropdown-item" href="archive.html">묻고답하기</a>
-                                        <a class="dropdown-item" href="single.html">공지사항</a>
-                                        <a class="dropdown-item" href="single.html">실시간채팅</a>
+                                        <a class="dropdown-item" href="index.html">Home</a>
+                                        <a class="dropdown-item" href="archive.html">Archive</a>
+                                        <a class="dropdown-item" href="single.html">Single Blog</a>
+                                        <a class="dropdown-item" href="static.html">Static Page</a>
+                                        <a class="dropdown-item" href="contact.html">Contact</a>
                                     </div>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">빠른예약</a>
+                                    <a class="nav-link" href="#">Features</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">스토어</a>
+                                    <a class="nav-link" href="#">Categories</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../admin/admin_main.do">관리자페이지</a>
+                                    <a class="nav-link" href="archive.html">Archive</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../mypage/mypage_main.do">마이페이지</a>
+                                    <a class="nav-link" href="#">About</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="contact.html">Contact</a>
                                 </li>
                             </ul>
                         </div>
@@ -135,6 +128,6 @@
             </div>
         </div>
     </header>
-
+    <!-- ****** Header Area End ****** -->
 </body>
 </html>
