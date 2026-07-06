@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,13 @@
 <style type="text/css">
 .link{
   cursor: pointer;
+}
+.welcome{
+	font-size: 15px;
+	color: #555;
+}
+.welcome strong{
+	color: red;
 }
 </style>
 <link rel="stylesheet" href="../shadow/css/shadowbox.css">
@@ -23,7 +31,7 @@
 			 content:'../member/login.jsp',
 			 player:'iframe',
 			 width:500,
-			 height:250,
+			 height:400,
 			 title:'로그인'
 		 })
 	 })
@@ -48,25 +56,20 @@
                 <div class="col-7 col-sm-6">
                     <div class="signup-search-area d-flex align-items-center justify-content-end">
                         <div class="login_register_area d-flex">
-                            <div class="login">
-                                <a class="link" id="login">로그인</a>
-                            </div>
-                            <div class="logout">
-                                <a class="link" id="logout">로그아웃</a>
-                            </div>
+                        		<c:if test="${sessionScope.id == null}">
+	                            <div class="login">
+	                                <a class="btn-xs btn-success btn link" id="login">로그인</a>
+	                            </div>
+	                            </c:if>
+	                            <c:if test="${sessionScope.id != null}">
+	                            <div class="logout">
+	                            	<span>
+	                                	<strong id="welcome">${sessionScope.name}(${sessionScope.admin=='y'?"관리자":"일반사용자"})님 안녕하세요</strong>
+	                            	</span>
+                               		<a href="../member/logout.do" class="btn-xs btn-danger btn link" id="logout">로그아웃</a>
+                            	</div>
+                            	</c:if>
                         </div>
-                        <!-- Search Button Area -->
-                        <div class="search_button">
-                            <a class="searchBtn" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
-                        </div>
-                        <!-- Search Form -->
-                        <!-- <div class="search-hidden-form">
-                            <form action="#" method="get">
-                                <input type="search" name="search" id="search-anything" placeholder="Search Anything...">
-                                <input type="submit" value="" class="d-none">
-                                <span class="searchBtn"><i class="fa fa-times" aria-hidden="true"></i></span>
-                            </form>
-                        </div> -->
                     </div>
                 </div>
             </div>
@@ -81,7 +84,7 @@
                 <!-- Logo Area Start -->
                 <div class="col-12">
                     <div class="logo_area text-center">
-                        <a href="index.html" class="yummy-logo">Travel</a>
+                        <a href="../main/main.do" class="yummy-logo">Travel</a>
                     </div>
                 </div>
             </div>
@@ -94,32 +97,57 @@
                         <div class="collapse navbar-collapse justify-content-center" id="yummyfood-nav">
                             <ul class="navbar-nav" id="yummy-nav">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                                    <a class="nav-link" href="../main/main.do">Home <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
+                                    <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">회원</a>
                                     <div class="dropdown-menu" aria-labelledby="yummyDropdown">
-                                        <a class="dropdown-item" href="index.html">Home</a>
-                                        <a class="dropdown-item" href="archive.html">Archive</a>
+                                        <a class="dropdown-item" href="../main/join.do">회원가입</a>
+                                        <a class="dropdown-item" href="archive.html">member</a>
                                         <a class="dropdown-item" href="single.html">Single Blog</a>
                                         <a class="dropdown-item" href="static.html">Static Page</a>
                                         <a class="dropdown-item" href="contact.html">Contact</a>
                                     </div>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Features</a>
+                                    <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">서울여행</a>
+                                    <div class="dropdown-menu" aria-labelledby="yummyDropdown">
+                                        <a class="dropdown-item" href="../main/join.do">회원가입</a>
+                                        <a class="dropdown-item" href="archive.html">member</a>
+                                        <a class="dropdown-item" href="single.html">Single Blog</a>
+                                        <a class="dropdown-item" href="static.html">Static Page</a>
+                                        <a class="dropdown-item" href="contact.html">Contact</a>
+                                    </div>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Categories</a>
+                                    <a class="nav-link" href="#">제주여행</a>
+                                    <div class="dropdown-menu" aria-labelledby="yummyDropdown">
+                                        <a class="dropdown-item" href="../main/join.do">회원가입</a>
+                                        <a class="dropdown-item" href="archive.html">member</a>
+                                        <a class="dropdown-item" href="single.html">Single Blog</a>
+                                        <a class="dropdown-item" href="static.html">Static Page</a>
+                                        <a class="dropdown-item" href="contact.html">Contact</a>
+                                    </div>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="archive.html">Archive</a>
+                                    <a class="nav-link" href="archive.html">부산여행</a>
+                                    <div class="dropdown-menu" aria-labelledby="yummyDropdown">
+                                        <a class="dropdown-item" href="../main/join.do">회원가입</a>
+                                        <a class="dropdown-item" href="archive.html">member</a>
+                                        <a class="dropdown-item" href="single.html">Single Blog</a>
+                                        <a class="dropdown-item" href="static.html">Static Page</a>
+                                        <a class="dropdown-item" href="contact.html">Contact</a>
+                                    </div>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">About</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="contact.html">Contact</a>
+                                    <a class="nav-link" href="#">커뮤니티</a>
+                                    <div class="dropdown-menu" aria-labelledby="yummyDropdown">
+                                        <a class="dropdown-item" href="../main/join.do">회원가입</a>
+                                        <a class="dropdown-item" href="archive.html">member</a>
+                                        <a class="dropdown-item" href="single.html">Single Blog</a>
+                                        <a class="dropdown-item" href="static.html">Static Page</a>
+                                        <a class="dropdown-item" href="contact.html">Contact</a>
+                                    </div>
                                 </li>
                             </ul>
                         </div>

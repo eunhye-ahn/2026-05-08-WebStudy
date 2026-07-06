@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +23,7 @@ body {
   padding: 40px 30px;
   border-radius: 18px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-  width: 230px;
+  width: 360px;
   text-align: center;
   animation: fadeIn 0.5s ease;
 }
@@ -41,10 +42,10 @@ h2 {
 
 /* 입력폼 */
 .input-group {
-	margin: 0px auto;
-	  align-items: center;
-	  gap: 8px;
-	  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
 }
 
 .input-group input {
@@ -84,6 +85,7 @@ button:hover {
   font-size: 14px;
   padding: 10px;
   border-radius: 8px;
+  display: none;
 }
 
 .success {
@@ -101,72 +103,69 @@ button:hover {
 <script type="text/javascript" src="http://code.jquery.com/jquery-4.0.0.min.js"></script>
 <script type="text/javascript">
 $(function(){
-	$('#canBtn').on('click',function(){
-		//parent 주의 => 안찍으면 shadow박스 자체에서 이동함
-		parent.location.href="../main/main.do"
-	})
 	$('#okBtn').on('click',function(){
-		const id=$('#id').val().trim()
-		const pwd=$('#pwd').val().trim()
-		if(!id){
+		const id=$('#userid').val()
+		parent.frm.id.value=id
+		parent.Shadowbox.close()
+	})
+	$('#checkBtn').on('click',function(){
+		const id=$('#userid').val().trim()
+		if(!id)
+		{
 			$('#message')
 				.text("아이디를 입력하세요")
-				.removeClass("")
+				.removeClass()
 				.addClass("message error")
-			$('#id').focus()
+				.show()
 			return
 		}
-		if(!pwd){
-			$('#message')
-				.text("비밀번호를 입력하세요")
-				.removeClass("")
-				.addClass("message error")
-			$('#pwd').focus()
-			return
-		}
+		
+		// 서버와 연결 
 		$.ajax({
 			method:'post',
-			url:'../member/login_ok.do',
-			data:{"id":id,"pwd":pwd},
-			success:function(result){
+			url:'../member/idcheck_ok.do',
+			data:{id},
+			success:function(result) // result=0,1
+			{
 				result=result.trim()
-				if(result==="NOID"){
+				//alert(result)
+				if(result==="0")
+				{
 					$('#message')
-						.text(`${id}는(은) 존재하지 않습니다`)
-						.removeClass("")
-						.addClass("message error")
-					$('#id').val("").focus()
-					$('#pwd').val("")
+						.text(`${id}는(은) 사용 가능한 아이디입니다`)
+						.removeClass()
+						.addClass("message success")
+						.show()
+					$('#okBtn').show()
 				}
-				else if(result==="NOPWD"){
+				else
+				{
 					$('#message')
-						.text("비밀번호가 틀립니다")
-						.removeClass("")
+						.text(`${id}는(은) 사용중인 아이디입니다`)
+						.removeClass()
 						.addClass("message error")
-					$('#pwd').val("").focus()
-				}
-				else{
-					parent.location.href="../main/main.do"
+						.show()
+					$('#okBtn').hide()
 				}
 			},
-			error:function(err){
+			error:function(err)
+			{
 				console.log(err)
 			}
 		})
-		
 	})
 })
 </script>
 </head>
 <body>
-<div class="check-container">
+  <div class="check-container">
   <div class="input-group">
-    <input type="text" id="id" name="id" placeholder="아이디를 입력하세요" style="display:block"><p>
-    <input type="password" id="pwd" name="pwd" placeholder="비밀번호를 입력하세요" style="margin-top:5px;display:block">
+    <input type="text" id="userid" placeholder="사용할 아이디를 입력하세요">
+    <button id="checkBtn" type="button">중복확인</button>
   </div>
   <div id="message" class="message"></div>
-  <button id="okBtn" type="button" style="margin-top: 10px">로그인</button>
-  <button id="canBtn" type="button" style="margin-top: 10px">취소</button>
+  <button id="okBtn" type="button" style="display:none;margin-top: 10px">확인</button>
 </div>
+  
 </body>
 </html>

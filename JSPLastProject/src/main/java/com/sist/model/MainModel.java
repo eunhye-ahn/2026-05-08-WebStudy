@@ -15,4 +15,11 @@ public class MainModel {
 	   request.setAttribute("main_jsp", "../main/home.jsp");
 	   return  "../main/main.jsp";
    }
+   @RequestMapping("main/join.do")
+   public String main_join(HttpServletRequest request,
+		   HttpServletResponse response)
+   {
+	   request.setAttribute("main_jsp", "../member/join.jsp");
+	   return  "../main/main.jsp";
+   }
 }
