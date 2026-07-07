@@ -45,7 +45,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="../food/detail.do?no=${vo.no }">
                                 <h4 class="post-headline">${vo.name }</h4>
                             </a>
                         </div>

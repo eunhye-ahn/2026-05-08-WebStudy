@@ -26,4 +26,20 @@ public class FoodDAO {
 		session.close();
 		return total;
 	}
+	
+	/**
+	 * <select id="foodDetailData" parameterType="int" resultType="FoodVO">
+		SELECT no,poster,name,type,phone,address,score,theme,reserve,parking,content,images,likecount,replycount,jjimcount,hit
+		FROM food2
+		WHERE no=#{no}
+	</select>
+	 */
+	public static FoodVO foodDetailData(int no) {
+		SqlSession session = ssf.openSession();
+		session.update("foodHitIncrement",no);
+		session.commit();
+		FoodVO vo = session.selectOne("foodDetailData",no);
+		session.close();
+		return vo;
+	}
 }

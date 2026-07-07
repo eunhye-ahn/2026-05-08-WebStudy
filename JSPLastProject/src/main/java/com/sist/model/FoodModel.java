@@ -40,4 +40,17 @@ public class FoodModel {
 		request.setAttribute("main_jsp", "../food/food_main.jsp");
 		return "../main/main.jsp";
 	}
+	@RequestMapping("food/detail.do")
+	public String food_detail(HttpServletRequest request, HttpServletResponse response) {
+		
+		String no = request.getParameter("no");
+		FoodVO vo = FoodDAO.foodDetailData(Integer.parseInt(no));
+		System.out.println(vo);
+		
+		request.setAttribute("vo", vo);
+		
+		request.setAttribute("food_jsp", "../food/detail.jsp");
+		request.setAttribute("main_jsp", "../food/food_main.jsp");
+		return "../main/main.jsp";
+	}
 }

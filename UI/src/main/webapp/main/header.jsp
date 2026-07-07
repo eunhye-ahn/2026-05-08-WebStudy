@@ -42,15 +42,11 @@
         <!-- Spinner End -->
 
         <!-- Topbar Start -->
-        <div class="container-fluid bg-primary px-5 d-none d-lg-block">
+        <div class="container-fluid px-5 d-none d-lg-block">
             <div class="row gx-0">
                 <div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
                     <div class="d-inline-flex align-items-center" style="height: 45px;">
-                        <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-twitter fw-normal"></i></a>
-                        <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-facebook-f fw-normal"></i></a>
-                        <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-linkedin-in fw-normal"></i></a>
-                        <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-instagram fw-normal"></i></a>
-                        <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle" href=""><i class="fab fa-youtube fw-normal"></i></a>
+                        
                     </div>
                 </div>
                 <div class="col-lg-4 text-center text-lg-end">
@@ -85,11 +81,9 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">About</a>
-                        <a href="services.html" class="nav-item nav-link">Services</a>
-                        <a href="blog.html" class="nav-item nav-link">Blog</a>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        <a href="index.html" class="nav-item nav-link active">홈</a>
+                        <a href="about.html" class="nav-item nav-link">축제/행사</a>
+                        <a href="services.html" class="nav-item nav-link">숙소</a>
                     </div>
                     <a href="https://htmlcodex.com/downloading/?item=3232" class="btn btn-primary rounded-pill py-2 px-4 ms-lg-4">Buy Pro Version</a>
                 </div>

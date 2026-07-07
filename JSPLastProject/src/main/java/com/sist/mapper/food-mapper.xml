@@ -10,4 +10,21 @@
 	<select id="foodTotalPage" resultType="int">
 		SELECT CEIL(COUNT(*)/12.0) FROM food2
 	</select>
+	<select id="foodDetailData" parameterType="int" resultType="FoodVO">
+		SELECT no,poster,name,type,phone,address,score,theme,time,reserve,parking,price,content,images,likecount,replycount,jjimcount,hit
+		FROM food2
+		WHERE no=#{no}
+	</select>
+	<update id="foodHitIncrement" parameterType="int">
+		UPDATE food2 SET hit=hit+1
+		WHERE no=#{no}
+	</update>
+	<select id="mainFoodTop7" resultType="FoodVO">
+		SELECT no,poster,name,type,phone,address,score,theme,time,reserve,parking,price,content,images,likecount,replycount,jjimcount,hit,rownum
+		FROM (SELECT no,poster,name,type,phone,address,score,theme,time,reserve,parking,price,content,images,likecount,replycount,jjimcount,hit,rownum
+			FROM food2
+			ORDER BY hit DESC
+			)
+		WHERE rownum&lt;=4
+	</select>
 </mapper>
