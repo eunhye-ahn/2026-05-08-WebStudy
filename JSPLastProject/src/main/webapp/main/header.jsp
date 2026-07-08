@@ -121,28 +121,14 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">제주여행</a>
-                                    <div class="dropdown-menu" aria-labelledby="yummyDropdown">
-                                        <a class="dropdown-item" href="../main/join.do">회원가입</a>
-                                        <a class="dropdown-item" href="archive.html">member</a>
-                                        <a class="dropdown-item" href="single.html">Single Blog</a>
-                                        <a class="dropdown-item" href="static.html">Static Page</a>
-                                        <a class="dropdown-item" href="contact.html">Contact</a>
-                                    </div>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="archive.html">부산여행</a>
-                                    <div class="dropdown-menu" aria-labelledby="yummyDropdown">
-                                        <a class="dropdown-item" href="../main/join.do">회원가입</a>
-                                        <a class="dropdown-item" href="archive.html">member</a>
-                                        <a class="dropdown-item" href="single.html">Single Blog</a>
-                                        <a class="dropdown-item" href="static.html">Static Page</a>
-                                        <a class="dropdown-item" href="contact.html">Contact</a>
-                                    </div>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">커뮤니티</a>
+                                    <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">커뮤니티</a>
                                     <div class="dropdown-menu" aria-labelledby="yummyDropdown">
-                                        <a class="dropdown-item" href="../main/join.do">회원가입</a>
+                                        <a class="dropdown-item" href="../board/list.do">게시판</a>
                                         <a class="dropdown-item" href="archive.html">member</a>
                                         <a class="dropdown-item" href="single.html">Single Blog</a>
                                         <a class="dropdown-item" href="static.html">Static Page</a>
