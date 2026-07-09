@@ -1,12 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
   <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+    <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../css/comment.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-4.0.0.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	let bCheck = false
+	$('.btns').on('click',function(){
+		const no = $(this).attr('data-no')
+		$('.forms').hide()
+		
+		if(bCheck==false){
+			
+			$('#form'+no).show()
+			$(this).val("취소")
+			bCheck=true
+		}
+		else{
+			$('#form').hide()
+			bCheck=false
+		}
+	})
+})
+</script>
 </head>
 <body>
 	<div class="container">
@@ -90,7 +112,7 @@
 	             				</c:if>
 	             			</c:if>
 	             			<button class="btn-xs btn-primary">추천하기</button>
-             				<button class="btn-xs btn-warning" onclick="javascript:history.back()">목록</button>
+             				<button class="btn-xs btn-warning" onclick="location.href='../food/food_main.do'">목록</button>
              			</td>
              		</tr>
              	</table>
@@ -148,12 +170,30 @@
 			<h3>댓글이 없습니다</h3>
 		</div>
 	</c:if>
-	<c:if test="${rList>0}">
 		<ul>
+			<c:forEach var="rvo" items="${rList }">
+				<li class="review-card">
+					<div class="review-header">
+						<div class="review-nick">${rvo.name }</div>
+						<div class="review-date">${rvo.dbday }</div>
+					</div>
+					<div class="review-text">${rvo.msg }</div>
+					<c:if test="${sessionScope.id ==rvo.id }">
+						<div><input type="button" class="btn-xs btn-primary btns" value="수정" data-no=${rvo.no }></div>
+						<div><input type="button" class="btn-xs btn-danger" value="삭제" onclick="location.href='../review/delete.do?no=${rvo.no}&fno=${rvo.fno }'"></div>
+					</c:if>
+					<form class="review-form forms" method="post" action="../review/update.do" id="form${rvo.no }" style="display:none">
+						<input type="hidden" name="fno" value="${vo.no }">
+						<input type="hidden" name="no" value="${rvo.no }">
+						<input type="text" name="msg" placeholder="리뷰 입력" value="${rvo.msg}" required>
+						<button type="submit">수정</button>
+					</form>
+				</li>
+			</c:forEach>
 		</ul>
-	</c:if>
 	<c:if test="${sessionScope.id != null}">
-		<form class="review-form">
+		<form class="review-form" method="post" action="../review/insert.do">
+			<input type="hidden" name="fno" value="${vo.no }">
 			<input type="text" name="msg" placeholder="댓글 입력" required>
 			<button type="submit">등록</button>
 		</form>

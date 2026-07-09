@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../css/cookie.css">
 </head>
 <body>
     <section class="archive-area section_padding_80">
@@ -77,7 +78,25 @@
                         </div>
                     </div>
                 </div>
-
+                
+                <div class="row" style="margin-top: 20px">
+	              <div class="recent-container">
+	                <h3>최근 방문 맛집</h3>
+	                <div class="recent-list">
+	                 <c:forEach var="vo" items="${cList }">
+	                   <a class="recent-card" href="../food/detail.do?no=${vo.no }">
+	                    <div class="thumb">
+	                      <img src="${vo.poster }">
+	                    </div>
+	                    <div class="meta">
+	                      <div class="title">${vo.name }</div>
+	                    </div>
+	                   </a>
+	                 </c:forEach>
+	                </div>
+	              </div>
+	             </div>
+	             
             </div>
         </div>
     </section>

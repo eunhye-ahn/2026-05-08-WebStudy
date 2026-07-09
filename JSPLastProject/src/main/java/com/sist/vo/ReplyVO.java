@@ -1,5 +1,9 @@
 package com.sist.vo;
 
+import java.util.Date;
+
+import lombok.Data;
+
 /**
  * NO      NOT NULL NUMBER       
 FNO              NUMBER       
@@ -8,6 +12,9 @@ NAME    NOT NULL VARCHAR2(51)
 MSG     NOT NULL CLOB         
 REGDATE          DATE  
  */
+@Data
 public class ReplyVO {
-
+	private int no,fno;
+	private String id,name,msg,dbday;
+	private Date regdate;
 }

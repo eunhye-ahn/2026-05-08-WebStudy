@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.review-mapper">
+<!-- 
+	VALUES(vo.getNo(), vo...)
+	VALUES(map.get("no")....)
+ -->
+	<insert id="reviewInsert" parameterType="ReviewVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(no)+1,1) as no FROM review
+		</selectKey>
+		INSERT INTO review(no,fno,id,name,msg)
+		VALUES(#{no},#{fno},#{id},#{name},#{msg})
+	</insert>
+	<select id="reviewListData" parameterType="int" resultType="ReviewVO">
+		SELECT no,fno,id,name,msg,TO_CHAR(regdate,'yyyy-mm-dd hh24:mi:ss') as dbday
+		FROM review
+		WHERE fno=#{fno}
+		ORDER BY no DESC
+	</select>
+	<delete id="reviewDelete" parameterType="int">
+		DELETE FROM review
+		WHERE no=#{fno}
+	</delete>
+	<update id="reviewUpdate" parameterType="ReviewVO">
+		UPDATE review SET
+		msg=#{msg}
+		WHERE no=#{no}
+	</update>
+</mapper>
