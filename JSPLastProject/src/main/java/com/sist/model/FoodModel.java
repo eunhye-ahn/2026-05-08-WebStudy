@@ -1,8 +1,15 @@
 package com.sist.model;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.sist.dao.FoodDAO;
@@ -104,8 +111,33 @@ public class FoodModel {
 		request.setAttribute("main_jsp", "../food/food_main.jsp");
 		return "../main/main.jsp";
 	}
-	@RequestMapping("food/food_find.do")
-	public String food_find(HttpServletRequest request, HttpServletResponse response) {
+	
+	
+	//jquery
+	@RequestMapping("food/find_jquery.do")
+	public void food_find(HttpServletRequest request, HttpServletResponse response) {
+		
+		String page = request.getParameter("page");
+		String column = request.getParameter("column");
+		String fd = request.getParameter("fd");
+		
+		int curpage = Integer.parseInt(strpage);
+		int start = (curpage*12)-12;
+		
+		Map map = new HashMap();
+		map.put("start", start);
+		map.put("column", column);
+		map.put("fd", fd);
+		
+		List<FoodVO> list = FoodDAO.foodFindData(map);
+		int totalpage = FoodDAO.foodFindTotalPage(map);
+		
+		final int BLOCK = 10;
+		int startPage = ((curpage-1)/BLOCK*BLOCK)+1;
+		int endPage = ((curpage-1)/BLOCK*BLOCK)+BLOCK;
+		if(endPage>totalpage) {
+			endPage = totalpage;
+		}
 		
 		request.setAttribute("food_jsp", "../food/find.jsp");
 		request.setAttribute("main_jsp", "../food/food_main.jsp");
@@ -113,11 +145,56 @@ public class FoodModel {
 		return "../main/main.jsp";
 	}
 	
-	@RequestMapping("food/food_find.do")
+	
+	//vue
+	@RequestMapping("food/find.do")
 	public void food_find_vue(HttpServletRequest request, HttpServletResponse response) {
-		String page = request.getParameter("page");
+		String strpage = request.getParameter("page");
 		String column = request.getParameter("column");	//type,name,address
 		String fd = request.getParameter("fd");
+		
+		if(strpage == null) {
+			strpage = "1";
+		}
+		int curpage = Integer.parseInt(strpage);
+		int start = (curpage*12)-12;
+		
+		Map map = new HashMap();
+		map.put("start", start);
+		map.put("column", column);
+		map.put("fd", fd);
+		
+		List<FoodVO> list = FoodDAO.foodFindData(map);
+		int totalpage = FoodDAO.foodFindTotalPage(map);
+		
+		final int BLOCK = 10;
+		int startPage = ((curpage-1)/BLOCK*BLOCK)+1;
+		int endPage = ((curpage-1)/BLOCK*BLOCK)+BLOCK;
+		if(endPage>totalpage) {
+			endPage = totalpage;
+		}
+		
+		
+		try {
+			 map = new HashMap();
+			map.put("start", start);
+			map.put("column", column);
+			map.put("list", list);
+			map.put("curpage", curpage);
+			map.put("totalpage", totalpage);
+			map.put("fd", fd);
+			map.put("startPage", startPage);
+			map.put("endPage", endPage);
+			
+			ObjectMapper mapper = new ObjectMapper();
+			String json = mapper.writeValueAsString(map);
+			
+			response.setContentType("text/plain;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.write(json);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 }

@@ -27,4 +27,16 @@
 			)
 		WHERE rownum&lt;=4
 	</select>
+	<select id="foodFindData" parameterType="hashmap" resultType="FoodVO">
+		SELECT no,name,poster,type,phone,likecount,replycount
+		    FROM food2
+		    WHERE ${column} LIKE '%'||#{fd}||'%'
+		    ORDER BY no ASC
+		    OFFSET #{start} ROWS FETCH NEXT 12 ROWS ONLY
+	</select>
+	<select id="foodFindTotalPage" parameterType="hashmap" resultType="int">
+		SELECT CEIL(COUNT(*)/12.0)
+		FROM food2
+		WHERE ${column} LIKE '%'||#{fd}||'%'
+	</select>
 </mapper>

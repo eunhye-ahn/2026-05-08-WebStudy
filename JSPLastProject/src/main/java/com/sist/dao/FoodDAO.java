@@ -1,6 +1,7 @@
 package com.sist.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -48,5 +49,33 @@ public class FoodDAO {
 		FoodVO vo=session.selectOne("foodDetailData",no);
 		session.close();
 		return vo;
+	}
+	/**
+	 * <select id="foodFindData" parameterType="hashmap" resultType="FoodVO">
+		SELECT *
+		FROM food2
+		WHERE ${column} LIKE '%||#{fd}||%'
+		ORDER BY no ASC
+		OFFSET #{start} ROWS FETCH NEXT 12 ROWS ONLY
+	</select>
+	 */
+	public static List<FoodVO> foodFindData(Map map){
+		SqlSession session=ssf.openSession();
+		List<FoodVO> list=session.selectList("foodFindData",map);
+		session.close();
+		return list;
+	}
+	/**
+	 * <select id="foodFindTotalPage" parameterType="hashmap" resultType="int">
+		SELECT CEIL(COUNT(*)/12.0)
+		FROM food2
+		WHERE ${column} LIKE '%||#{fd}||%'
+	</select>
+	 */
+	public static int foodFindTotalPage(Map map) {
+		SqlSession session=ssf.openSession();
+		int total =session.selectOne("foodFindTotalPage",map);
+		session.close();
+		return total;
 	}
 }
