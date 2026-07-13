@@ -27,6 +27,15 @@ $(function(){
 			bCheck=false
 		}
 	})
+	
+	$('#likeOnBtn').on('click',function(){
+		let fno=$(this).attr("data-fno")
+		location.href="../like/like_on.do?fno="+fno
+	})
+	$('#likeOffBtn').on('click',function(){
+		let fno=$(this).attr("data-fno")
+		location.href="../like/like_off.do?fno="+fno
+	})
 })
 </script>
 </head>
@@ -105,7 +114,14 @@ $(function(){
              		<tr>
              			<td colspan="3" class="text-right">
 	             			<c:if test="${sessionScope.id!=null }">
-	             				<button class="btn-xs btn-danger">좋아요</button>
+	             				<button class="like-btn">
+		             				<c:if test="${fCheck=='false' }">
+									  	<span class="heart" id="likeOnBtn" data-fno="${vo.no }">♡</span>
+									 </c:if>
+									 <c:if test="${fCheck=='true' }">
+									  	<span class="heart" id="likeOffBtn" data-fno="${vo.no }">♥</span>
+									 </c:if>
+								 </button>
 	             				<button class="btn-xs btn-info">찜하기</button>
 	             				<c:if test="${vo.reserve!='불가' }">
 		             				<button class="btn-xs btn-success">예약하기</button>

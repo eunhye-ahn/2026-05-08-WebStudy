@@ -84,7 +84,8 @@ public class MemberModel {
 			session.setAttribute("name", vo.getName());
 			session.setAttribute("sex", vo.getSex());
 			session.setAttribute("email", vo.getEmail());
-			session.setAttribute("address", vo.getAddr1()+" "+vo.getAddr2());
+			session.setAttribute("addr1", vo.getAddr1());
+			session.setAttribute("addr2", vo.getAddr2());
 			session.setAttribute("phone", vo.getPhone());
 			session.setAttribute("admin", vo.getAdmin());
 		}

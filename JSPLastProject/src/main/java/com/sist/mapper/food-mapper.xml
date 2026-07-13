@@ -39,4 +39,14 @@
 		FROM food2
 		WHERE ${column} LIKE '%'||#{fd}||'%'
 	</select>
+	<update id="foodLikeIncrement" parameterType="int">
+		UPDATE food2 SET 
+		likecount = likecount+1
+		WHERE no=#{no}
+	</update>
+	<update id="foodLikeDecrement" parameterType="int">
+		UPDATE food2 SET 
+		likecount = likecount-1
+		WHERE no=#{no}
+	</update>
 </mapper>

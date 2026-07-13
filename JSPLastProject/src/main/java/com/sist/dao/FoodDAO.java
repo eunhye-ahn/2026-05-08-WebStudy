@@ -78,4 +78,31 @@ public class FoodDAO {
 		session.close();
 		return total;
 	}
+	/**
+	 * <update id="foodLikeIncrement" parameterType="int">
+			UPDATE food2 SET 
+			likecount = likecount+1
+			WHERE no=#{no}
+		</update>
+	 */
+		public static void foodLikeIncrement(int no) {
+			SqlSession session = ssf.openSession();
+			session.update("foodLikeIncrement",no);
+			session.commit();
+			session.close();
+		}
+		/**
+		 * <update id="foodLikeDecrement" parameterType="int">
+		UPDATE food2 SET 
+		likecount = likecount-1
+		WHERE no=#{no}
+	</update>
+	
+		 */
+		public static void foodLikeDecrement(int no) {
+			SqlSession session = ssf.openSession();
+			session.update("foodLikeDecrement",no);
+			session.commit();
+			session.close();
+		}
 }

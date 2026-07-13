@@ -13,13 +13,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.sist.dao.FoodDAO;
+import com.sist.dao.FoodLikeDAO;
 import com.sist.dao.ReviewDAO;
+import com.sist.vo.FoodLikeVO;
 import com.sist.vo.FoodVO;
 import com.sist.vo.ReviewVO;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class FoodModel {
@@ -71,7 +74,8 @@ public class FoodModel {
 	}
 	@RequestMapping("food/detail.do")
 	public String food_detail(HttpServletRequest request, HttpServletResponse response) {
-		
+		HttpSession session = request.getSession();
+		String memberId = (String)session.getAttribute("id");
 		String no = request.getParameter("no");
 		FoodVO vo = FoodDAO.foodDetailData(Integer.parseInt(no));
 		System.out.println(vo);
@@ -102,9 +106,17 @@ public class FoodModel {
 		List<ReviewVO> rList = ReviewDAO.reviewListData(Integer.parseInt(no));
 		int rCount = rList.size();
 		
+		
+		FoodLikeVO lvo = new FoodLikeVO();
+		lvo.setFno(Integer.parseInt(no));
+		lvo.setMember_id(memberId);
+		boolean fCheck = FoodLikeDAO.foodLikeChecked(lvo);
+		System.out.println("fCheck:"+fCheck);
+		
 		System.out.println(rList);
 		System.out.println(rCount);
 		
+		request.setAttribute("fCheck", fCheck);
 		request.setAttribute("rList", rList);
 		request.setAttribute("rcount", rCount);
 		request.setAttribute("food_jsp", "../food/detail.jsp");
@@ -115,9 +127,9 @@ public class FoodModel {
 	
 	//jquery
 	@RequestMapping("food/find_jquery.do")
-	public void food_find(HttpServletRequest request, HttpServletResponse response) {
+	public String food_find(HttpServletRequest request, HttpServletResponse response) {
 		
-		String page = request.getParameter("page");
+		String strpage = request.getParameter("page");
 		String column = request.getParameter("column");
 		String fd = request.getParameter("fd");
 		
