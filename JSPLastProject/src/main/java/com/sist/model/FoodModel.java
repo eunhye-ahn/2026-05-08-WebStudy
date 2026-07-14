@@ -14,9 +14,11 @@ import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.sist.dao.FoodDAO;
 import com.sist.dao.FoodLikeDAO;
+import com.sist.dao.JjimDAO;
 import com.sist.dao.ReviewDAO;
 import com.sist.vo.FoodLikeVO;
 import com.sist.vo.FoodVO;
+import com.sist.vo.JjimVO;
 import com.sist.vo.ReviewVO;
 
 import jakarta.servlet.http.Cookie;
@@ -112,6 +114,13 @@ public class FoodModel {
 		lvo.setMember_id(memberId);
 		boolean fCheck = FoodLikeDAO.foodLikeChecked(lvo);
 		System.out.println("fCheck:"+fCheck);
+		
+		JjimVO jvo = new JjimVO();
+		jvo.setFno(Integer.parseInt(no));
+		jvo.setId(memberId);
+		int jCount = JjimDAO.jjimCheck(jvo);
+		
+		request.setAttribute("jCount", jCount);
 		
 		System.out.println(rList);
 		System.out.println(rCount);

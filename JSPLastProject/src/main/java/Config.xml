@@ -4,6 +4,11 @@
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<properties resource="db.properties"/>
+	<settings>
+	    <setting name="cacheEnabled" value="true"/>
+	    <setting name="callSettersOnNulls" value="false"/>
+	    <setting name="logImpl" value="STDOUT_LOGGING"/>
+	 </settings>
 	<typeAliases>
 		<typeAlias type="com.sist.vo.MemberVO" alias="MemberVO"/>
 		<typeAlias type="com.sist.vo.FoodVO" alias="FoodVO"/>
@@ -12,6 +17,7 @@
 		<typeAlias type="com.sist.vo.ReviewVO" alias="ReviewVO"/>
 		<typeAlias type="com.sist.vo.FoodLikeVO" alias="FoodLikeVO"/>
 		<typeAlias type="com.sist.vo.NoticeVO" alias="NoticeVO"/>
+		<typeAlias type="com.sist.vo.JjimVO" alias="JjimVO"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -35,6 +41,8 @@
 		<mapper resource="com/sist/mapper/review-mapper.xml"/>
 		<mapper resource="com/sist/mapper/food-like-mapper.xml"/>
 		<mapper resource="com/sist/mapper/notice-mapper.xml"/>
+		<mapper resource="com/sist/mapper/admin-mapper.xml"/>
+		<mapper resource="com/sist/mapper/jjim-mapper.xml"/>
 		<!--  include -->
 	</mappers>
 </configuration>

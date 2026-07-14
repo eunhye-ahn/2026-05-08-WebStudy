@@ -22,6 +22,7 @@ REGDATE           DATE
 
 @Data
 public class MemberVO {
+	private int grade;
 	private String id,pwd,name,sex,birthday,email,post,addr1,addr2,phone,content,admin,msg;
 	private Date regdate;
 }

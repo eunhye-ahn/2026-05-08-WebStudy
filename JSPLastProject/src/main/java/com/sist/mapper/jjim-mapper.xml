@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.jjim-mapper">
+	<select id="jjimCheck" parameterType="JjimVO" resultType="int">
+		SELECT COUNT(*)
+		FROM jjim
+		WHERE fno=#{fno} AND id=#{id}
+	</select>
+	<insert id="jjimOn" parameterType="JjimVO">
+		INSERT INTO jjim(jno,fno,id)
+		VALUES(jjim_jno_seq.nextval,#{fno},#{id})
+	</insert>
+	<resultMap type="JjimVO" id="jjimMap">
+		<result property="fvo.name" column="name" />
+		<result property="fvo.poster" column="poster" />
+		<result property="fvo.address" column="address" />
+	</resultMap>
+	<select id="jjimListData" parameterType="string" resultMap="jjimMap">
+		SELECT fno,jno,name,poster,TO_CHAR(regdate,'yyyy-mm-dd') as dbday,address
+		FROM jjim JOIN food2
+		ON jjim.fno=food2.no AND id=#{id}
+		ORDER BY no DESC
+	</select>
+	<delete id="jjimOff" parameterType="int">
+		DELETE FROM jjim
+		WHERE jno=#{jno}
+	</delete>
+</mapper>

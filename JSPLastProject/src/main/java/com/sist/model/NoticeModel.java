@@ -93,6 +93,7 @@ public class NoticeModel {
 		}
 		
 		request.setAttribute("nList", nList);
+		System.out.println(nList);
 		request.setAttribute("curpage", curpage);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
@@ -103,6 +104,47 @@ public class NoticeModel {
 		return "../main/main.jsp";
 	}
 	
+	@RequestMapping("notice/detail.do")
+	public String notice_detail(HttpServletRequest request, HttpServletResponse response) {
+		String no = request.getParameter("no");
+		
+		NoticeVO vo = NoticeDAO.noticeDetail(Integer.parseInt(no));
+		
+		
+		request.setAttribute("vo", vo);
+		
+		request.setAttribute("main_jsp", "../notice/detail.jsp");
+		return "../main/main.jsp";
+	}
 	
+	@RequestMapping("notice/update.do")
+	public String notice_update(HttpServletRequest request, HttpServletResponse response) {
+		String no = request.getParameter("no");
+		
+		NoticeVO vo = NoticeDAO.noticeDetail(Integer.parseInt(no));
+		
+		request.setAttribute("admin_jsp", "../notice/update.jsp");
+		request.setAttribute("vo", vo);
+		
+		return "../adminpage/admin_main.jsp";
+	}
 	
+	@RequestMapping("notice/update_ok.do")
+	public String notice_update_ok(HttpServletRequest request, HttpServletResponse response) {
+		String no = request.getParameter("no");
+		String type = request.getParameter("type");
+		String subject = request.getParameter("subject");
+		String content = request.getParameter("content");
+		
+		NoticeVO vo = new NoticeVO();
+		vo.setNo(Integer.parseInt(no));
+		vo.setType(Integer.parseInt(type));
+		vo.setSubject(subject);
+		vo.setContent(content);
+		System.out.println(vo);
+		
+		NoticeDAO.noticeUpdate(vo);
+		
+		return "redirect:../adminpage/list.do";
+	}
 }

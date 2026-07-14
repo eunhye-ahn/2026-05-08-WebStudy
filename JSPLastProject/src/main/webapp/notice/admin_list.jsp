@@ -30,7 +30,7 @@
     		<c:forEach var="vo" items="${nList }">
     			<tr>
     				<td width="10%">${vo.no }</td>
-	    			<td width="45%">${vo.subject }</td>
+	    			<td width="45%"><a href="../notice/update.do?no=${vo.no }">${vo.subject }</a></td>
 	    			<td width="15%">${vo.name }</td>
 	    			<td width="20%">${vo.dbday }</td>
 	    			<td width="10%">${vo.hit }</td>

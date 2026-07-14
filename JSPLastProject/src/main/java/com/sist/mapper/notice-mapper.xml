@@ -15,4 +15,21 @@
 		SELECT CEIL(COUNT(*)/10.0)
 		FROM notice
 	</select>
+	<select id="noticeDetail" parameterType="int" resultType="NoticeVO">
+		SELECT no,name,subject,type,TO_CHAR(regdate,'yyyy-mm-dd') as dbday,hit,content
+		FROM notice
+		WHERE no=#{no}
+	</select>
+	<update id="hitIncrement" parameterType="int">
+		UPDATE notice SET
+			hit=hit+1
+		WHERE no=#{no}
+	</update>
+	<update id="noticeUpdate" parameterType="NoticeVO">
+		UPDATE notice SET
+			subject=#{subject},
+			type=#{type},
+			content=#{content}
+		WHERE no=#{no}
+	</update>
 </mapper>

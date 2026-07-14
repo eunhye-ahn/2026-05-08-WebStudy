@@ -52,4 +52,41 @@ public class NoticeDAO {
 		session.close();
 		return total;
 	}
+	
+	/**
+	 * <select id="noticeDetail" parameterType="int">
+		SELECT *
+		FROM notice
+		WHERE no=#{no}
+	</select>
+	<update id="hitIncrement" parameterType="int">
+		UPDATE notice SET
+		hit=hit+1
+		WHERE no=#{no}
+	</update>
+	 */
+	public static NoticeVO noticeDetail(int no) {
+		SqlSession session = ssf.openSession();
+		session.update("hitIncrement",no);
+		session.commit();
+		NoticeVO vo = session.selectOne("noticeDetail",no);
+		session.close();
+		return vo;
+	}
+	
+	/**
+	 * <update id="noticeUpdate" parameterType="NoticeVO">
+		UPDATE notice SET
+			subject=#{subject}
+			type=#{type}
+			content=#{content}
+		WHERE no = #{no}
+	</update>
+	 */
+	public static void noticeUpdate(NoticeVO vo) {
+		SqlSession session = ssf.openSession();
+		session.update("noticeUpdate",vo);
+		session.commit();
+		session.close();
+	}
 }
