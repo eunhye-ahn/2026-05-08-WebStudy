@@ -58,4 +58,6 @@ public class ReviewModel {
 		
 		return "redirect:../food/detail.do?no="+fno;
 	}
+	
+	
 }

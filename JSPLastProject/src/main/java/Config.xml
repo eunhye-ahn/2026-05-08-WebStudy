@@ -18,6 +18,7 @@
 		<typeAlias type="com.sist.vo.FoodLikeVO" alias="FoodLikeVO"/>
 		<typeAlias type="com.sist.vo.NoticeVO" alias="NoticeVO"/>
 		<typeAlias type="com.sist.vo.JjimVO" alias="JjimVO"/>
+		<typeAlias type="com.sist.vo.ReserveVO" alias="ReserveVO"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -43,6 +44,7 @@
 		<mapper resource="com/sist/mapper/notice-mapper.xml"/>
 		<mapper resource="com/sist/mapper/admin-mapper.xml"/>
 		<mapper resource="com/sist/mapper/jjim-mapper.xml"/>
+		<mapper resource="com/sist/mapper/reserve-mapper.xml"/>
 		<!--  include -->
 	</mappers>
 </configuration>

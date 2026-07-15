@@ -6,95 +6,123 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<style type="text/css">
-.container{
-   margin-top: 50px;
-}
-.row {
-  margin: 0px auto;
-  width: 960px;
-}
-h3 {
-   text-align: center;
-}
-.card{
-	box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-	border: none;
-	border-radius: 12px;
-}
-.card-header{
-	font-weight: 700;
-	font-size: 1.1em;
-}
-#food_list{
-	height: 600px;
-	overflow-y: auto;
-}
-.food-itme:hover{
-	background-color: #f1f1f1;
-	cursor: pointer;
-}
-img#food_poster{
-	border-radius: 8px;
-}
-</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body{
+      background-color:#f8f9fa;
+      font-family:'Noto Sans KR', sans-serif;
+    }
+    .card{
+      box-shadow:0 4px 10px rgba(0,0,0,0.05);
+      border:none;
+      border-radius:12px;
+    }
+    .card-header{
+      font-weight:700;
+      font-size:1.1rem;
+    }
+    #food_list{
+      height:600px;
+      overflow-y:auto;
+    }
+    .food-item:hover{
+      background-color:#f1f1f1;
+      cursor:pointer;
+    }
+    img#food_poster{
+      border-radius:8px;
+    }
+  </style>
+  <script type="text/javascript" src="http://code.jquery.com/jqeury-4.0.0.min.js"></script>
+  <script type="text/javascript">
+  $(function(){
+	  $.ajax({
+		  method:'post',
+		  url:'../reserve/reserve_food.do',
+		  success:function(res){
+			  $('#food_list').html(res)
+		  }
+	  })
+	  
+	  
+  })
+  </script>
 </head>
 <body>
-<div class="container my-4">
-	<div class="row g-4">
-		<div class="col-sm-4">
-			<div class="card h-100">
-				<div class="card-header bg-danger text-white text-center">
-					맛집 정보
-				</div>
-				<div class="card-body" id="food_list">
-				
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-5">
-			<div class="card h-100">
-				<div class="card-header bg-info text-white text-center">
-					예약일 정보
-				</div>
-				<div class="card-body" id="food_rdays">
-				
+	<div class="container my-4">
+		<div class="row g-4">
+			<%-- 맛집정보 --%>
+			<div class="col-md-4">
+				<div class="card h-100">
+					<div class="card-header bg-danger text-white text-center">맛집정보</div>
+					<div class="card-body" id="food_list">
+						
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-sm-3">
-			<div class="card h-100">
-				<div class="card-header bg-info text-white text-center">
-					예약 정보
+			<%-- 예약일 --%>
+			<div class="col-md-5">
+				<div class="card h-100">
+					<div class="card-header bg-info text-white text-center">예약일</div>
+					<div class="card-body" id="food_rdays">
+						
+					</div>
 				</div>
-				<div class="card-body text-center">
-				
+			</div>
+			<%-- 예약정보 --%>
+			<div class="col-md-3">
+				<div class="card h-100">
+					<div class="card-header bg-success text-white text-center">예약정보</div>
+					<div class="card-body text-center">
+						<img src="" id="food_poster" style="display:none">
+						<table class="table table-borderless text-start" style="display:none">
+							<tr>
+								<td class="text-muted">업체명</td>
+								<td id="food_name">-</td>
+							</tr>
+							<tr>
+								<td class="text-muted">예약일</td>
+								<td id="food_day">-</td>
+							</tr>
+							<tr>
+								<td class="text-muted">예약시간</td>
+								<td id="food_time">-</td>
+							</tr>
+							<tr>
+								<td class="text-muted">인원</td>
+								<td id="food_inwon">-</td>
+							</tr>
+							
+						</table>
+						<form method="post" action="../reserve/reserve_insert.do" id="reserveBtn" style="display:none">
+							<input type="hidden" name="rno" id="rno">
+							<input type="hidden"  name="rdays"  id="rdays">
+							<input type="hidden"  name="rtime"  id="rtime">
+							<input type="hidden"  name="rinwon"  id="rinwon">
+							<button type="submit" class="btn-primary w-100%">예약하기</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="row g-4 mt-3">
+				<div class="col-md-8">
+					<div class="card h-100">
+						<div class="card-header bg-warning text-white text-center">시간정보</div>
+						<div class="card-body text-center" id="food_times">
+							
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card h-100">
+						<div class="card-header bg-primary text-white text-center">인원정보</div>
+						<div class="card-body text-center" id="food_inwons">
+							
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="row g-4 mt-3">
-		<div class="col-sm-8">
-			<div class="card">
-				<div class="card-header bg-primary text-white text-center">
-					시간 정보
-				</div>
-				<div class="card-body text-center">
-				
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-4">
-			<div class="card">
-				<div class="card-header bg-warning text-white text-center">
-					인원 정보
-				</div>
-				<div class="card-body text-center">
-				
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
 </body>
 </html>

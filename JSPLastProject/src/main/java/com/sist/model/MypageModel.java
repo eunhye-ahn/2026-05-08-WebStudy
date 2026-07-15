@@ -5,7 +5,9 @@ import java.util.List;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.sist.dao.JjimDAO;
+import com.sist.dao.ReserveDAO;
 import com.sist.vo.JjimVO;
+import com.sist.vo.ReserveVO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -33,6 +35,22 @@ public class MypageModel {
 		request.setAttribute("list", list);
 		
 		request.setAttribute("mypage_jsp","../mypage/jjim.jsp");
+		request.setAttribute("main_jsp","../mypage/mypage_main.jsp");
+		return "../main/main.jsp";
+	}
+	
+	@RequestMapping("mypage/mypage_reserve.do")
+	public String mypage_reserve(HttpServletRequest request, HttpServletResponse response) {
+		
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id");
+		
+		List<ReserveVO> list = ReserveDAO.reserveListData(id);
+		System.out.println(list);
+		
+		request.setAttribute("list", list);
+		
+		request.setAttribute("mypage_jsp","../mypage/reserve.jsp");
 		request.setAttribute("main_jsp","../mypage/mypage_main.jsp");
 		return "../main/main.jsp";
 	}

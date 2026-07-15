@@ -7,8 +7,10 @@ import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.sist.dao.AdminDAO;
 import com.sist.dao.FoodDAO;
+import com.sist.dao.ReserveDAO;
 import com.sist.vo.FoodVO;
 import com.sist.vo.MemberVO;
+import com.sist.vo.ReserveVO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -71,5 +73,22 @@ public class AdminModel {
 			e.printStackTrace();
 		}
 		
+	}
+	@RequestMapping("admin/admin_reserve.do")
+	public String reserve_list(HttpServletRequest request, HttpServletResponse response) {
+		
+		List<ReserveVO> list = ReserveDAO.reserveAdiminListData();
+		
+		request.setAttribute("list",list);
+		System.out.println(list);
+		request.setAttribute("admin_jsp", "../adminpage/admin_reserve.jsp");
+		return "../adminpage/admin_main.jsp";
+	}
+	@RequestMapping("adminpage/reserve_ok.do")
+	public String reserve_ok(HttpServletRequest request, HttpServletResponse response) {
+		String rno = request.getParameter("rno");
+		ReserveDAO.reserveAdminOk(Integer.parseInt(rno));
+		
+		return "redirect:../admin/admin_reserve.do";
 	}
 }
