@@ -127,7 +127,7 @@
                                     <div class="dropdown-menu" aria-labelledby="yummyDropdown">
                                         <a class="dropdown-item" href="../board/list.do">게시판</a>
                                         <a class="dropdown-item" href="../notice/user_list.do">공지사항</a>
-                                        <a class="dropdown-item" href="single.html">Single Blog</a>
+                                        <a class="dropdown-item" href="../chat/chat.do">실시간채팅</a>
                                         <a class="dropdown-item" href="static.html">Static Page</a>
                                         <a class="dropdown-item" href="contact.html">Contact</a>
                                     </div>

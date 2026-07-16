@@ -97,4 +97,30 @@ public class ReserveDAO {
 		session.commit();
 		session.close();
 	}
+	/**
+	 * <delete id="reserveCancel" parameterType="int">
+			DELEETE FROM reserve
+			WHERE rno=#{rno}
+		</delete>
+	 */
+	public static void reserveCancel(int rno){
+		SqlSession session = ssf.openSession();
+		session.delete("reserveCancel",rno);
+		session.commit();
+		session.close();
+	}
+	/**
+	 * <select id="reserveInfo" parameterType="int" resultMap="infoMap">
+			SELECT rno,no,rdate,rtime,inwon,TO_CHAR(regdate,'yyyy-mm-dd') as dbday,
+			f.name as fname,poster,address,parking,type,score,time,phone
+			FROM reserve r JOIN food2 f
+			ON r.fno=f.no AND rno=#{rno} 
+		</select>
+	 */
+	public static ReserveVO reserveInfo(int rno) {
+		SqlSession session = ssf.openSession();
+		ReserveVO vo = session.selectOne("reserveInfo",rno);
+		session.close();
+		return vo;
+	}
 }

@@ -1,7 +1,12 @@
 package com.sist.model;
 
+import java.io.PrintWriter;
 import java.util.List;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.sist.dao.JjimDAO;
@@ -53,5 +58,29 @@ public class MypageModel {
 		request.setAttribute("mypage_jsp","../mypage/reserve.jsp");
 		request.setAttribute("main_jsp","../mypage/mypage_main.jsp");
 		return "../main/main.jsp";
+	}
+	
+	@RequestMapping("mypage/reserve_info.do")
+	public void reserve_info(HttpServletRequest request, HttpServletResponse response) {
+		/**
+		 * SELECT rno,no,rdate,rtime,inwon,TO_CHAR(regdate,'yyyy-mm-dd') as dbday,
+			f.name as fname,poster,address,parking,type,score,time,phone
+		 */
+		String rno = request.getParameter("rno");
+		
+		ReserveVO vo = ReserveDAO.reserveInfo(Integer.parseInt(rno));
+		
+		
+		try {
+			//jackson 라이브러리 => json만들어줌 (JSONObject로 안만들어도 ok)
+			ObjectMapper mapper = new ObjectMapper();
+			String json = mapper.writeValueAsString(vo);
+			
+			response.setContentType("text/plain;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.write(json);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

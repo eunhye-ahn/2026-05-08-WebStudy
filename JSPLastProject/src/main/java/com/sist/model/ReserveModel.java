@@ -140,4 +140,12 @@ public class ReserveModel {
 		
 		return "redirect:../mypage/mypage_reserve.do";
 	}
+	@RequestMapping("reserve/reserve_delete.do")
+	public String reserve_delete(HttpServletRequest request, HttpServletResponse response) {
+		String rno = request.getParameter("rno");
+		
+		ReserveDAO.reserveCancel(Integer.parseInt(rno));
+		
+		return "redirect:../mypage/mypage_reserve.do";
+	}
 }

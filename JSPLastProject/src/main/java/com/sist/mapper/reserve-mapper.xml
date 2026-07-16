@@ -41,6 +41,26 @@
 		ok='Y'
 		WHERE rno=#{rno}
 	</update>
+	<delete id="reserveCancel" parameterType="int">
+		DELETE FROM reserve
+		WHERE rno=#{rno}
+	</delete>
+	<resultMap type="ReserveVO" id="infoMap">
+		<result property="fvo.name" column="fname"/>
+		<result property="fvo.poster" column="poster"/>
+		<result property="fvo.phone" column="phone"/>
+		<result property="fvo.address" column="address"/>
+		<result property="fvo.parking" column="parking"/>
+		<result property="fvo.type" column="type"/>
+		<result property="fvo.score" column="score"/>
+		<result property="fvo.time" column="time"/>
+	</resultMap>
+	<select id="reserveInfo" parameterType="int" resultMap="infoMap">
+		SELECT rno,no,rdate,rtime,inwon,TO_CHAR(regdate,'yyyy-mm-dd') as dbday,
+		f.name as fname,poster,address,parking,type,score,time,phone
+		FROM reserve r JOIN food2 f
+		ON r.fno=f.no AND rno=#{rno} 
+	</select>
 	<!--  승인/취소/예약정보 보기 = 알림(stomp) -->
 	<!-- ReserveVO(rno=2, fno=3, id=null, name=null, rdate=2026-7-15, rtime=13:00, inwon=2명, ok=null, dbday=2026-07-15, regdate=null, fvo=FoodVO(no=0, likecount=0, replycount=0, jjimcount=0, hit=0, poster=http://menupan.com/restaurant/restimg/007/zzmenuimg/h5024574_z.jpg, price=null, name=유저01, type=null, phone=(063) 284-2224, address=null, theme=null, time=null, reserve=null, parking=null, content=null, images=null, score=null))] -->
 </mapper>
